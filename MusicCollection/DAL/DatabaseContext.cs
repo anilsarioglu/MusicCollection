@@ -19,7 +19,7 @@ namespace DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("Admin");
+            modelBuilder.HasDefaultSchema("MusicCollection");
 
             modelBuilder.Configurations.Add(new AlbumEntityConfiguration());
             modelBuilder.Configurations.Add(new ArtistEntityConfiguration());
