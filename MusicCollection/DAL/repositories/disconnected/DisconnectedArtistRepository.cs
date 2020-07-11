@@ -12,7 +12,8 @@ namespace DAL.repositories.disconnected
         {
             using (var context = new DatabaseContext())
             {
-                return context.Artists.Add(artist);
+                var newArtist = context.Artists.Add(artist);
+                return newArtist;
             }
         }
 
@@ -37,6 +38,7 @@ namespace DAL.repositories.disconnected
             using (var context = new DatabaseContext())
             {
                 context.Entry(artist).State = EntityState.Modified;
+                context.SaveChanges();
                 return artist;
             }
         }
@@ -47,6 +49,7 @@ namespace DAL.repositories.disconnected
             {
                 var artist = context.Artists.Find(artistId);
                 context.Entry(artist).State = EntityState.Deleted;
+                context.SaveChanges();
             }
         }
     }

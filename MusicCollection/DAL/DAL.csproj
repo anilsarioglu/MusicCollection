@@ -82,6 +82,7 @@
     <Compile Include="repositories\interfaces\IRepository.cs" />
     <Compile Include="repositories\PlaylistRepository.cs" />
     <Compile Include="repositories\SongRepository.cs" />
+    <Compile Include="unitOfWork\DisconnectedUnitOfWork.cs" />
     <Compile Include="unitOfWork\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -12,7 +12,8 @@ namespace DAL.repositories.disconnected
         {
             using (var context = new DatabaseContext())
             {
-                return context.Genres.Add(genre);
+                var newGenre = context.Genres.Add(genre);
+                return newGenre;
             }
         }
 
@@ -37,6 +38,7 @@ namespace DAL.repositories.disconnected
             using (var context = new DatabaseContext())
             {
                 context.Entry(genre).State = EntityState.Modified;
+                context.SaveChanges();
                 return genre;
             }
         }
@@ -47,6 +49,7 @@ namespace DAL.repositories.disconnected
             {
                 var genre = context.Genres.Find(genreId);
                 context.Entry(genre).State = EntityState.Deleted;
+                context.SaveChanges();
             }
         }
     }
