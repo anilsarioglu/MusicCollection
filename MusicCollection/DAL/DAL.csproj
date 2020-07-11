@@ -72,7 +72,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="repositories\AlbumRepository.cs" />
     <Compile Include="repositories\ArtistRepository.cs" />
+    <Compile Include="repositories\disconnected\DisconnectedAlbumRepository.cs" />
+    <Compile Include="repositories\disconnected\DisconnectedArtistRepository.cs" />
+    <Compile Include="repositories\disconnected\DisconnectedGenreRepository.cs" />
+    <Compile Include="repositories\disconnected\DisconnectedPlaylistRepository.cs" />
+    <Compile Include="repositories\disconnected\DisconnectedSongRepository.cs" />
     <Compile Include="repositories\GenreRepository.cs" />
+    <Compile Include="repositories\interfaces\IDisconnectedRepository.cs" />
     <Compile Include="repositories\interfaces\IRepository.cs" />
     <Compile Include="repositories\PlaylistRepository.cs" />
     <Compile Include="repositories\SongRepository.cs" />

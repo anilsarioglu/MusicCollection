@@ -67,7 +67,7 @@ namespace DAL.repositories
             }
         }
 
-        public void Remove(Song song)
+        public void Delete(Song song)
         {
             try
             {

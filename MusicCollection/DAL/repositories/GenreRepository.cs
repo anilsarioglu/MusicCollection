@@ -67,7 +67,7 @@ namespace DAL.repositories
             }
         }
 
-        public void Remove(Genre genre)
+        public void Delete(Genre genre)
         {
             try
             {

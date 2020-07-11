@@ -67,7 +67,7 @@ namespace DAL.repositories
             }
         }
 
-        public void Remove(Playlist playlist)
+        public void Delete(Playlist playlist)
         {
             try
             {

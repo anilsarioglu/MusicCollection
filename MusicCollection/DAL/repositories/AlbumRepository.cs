@@ -67,7 +67,7 @@ namespace DAL.repositories
             }
         }
 
-        public void Remove(Album album)
+        public void Delete(Album album)
         {
             try
             {

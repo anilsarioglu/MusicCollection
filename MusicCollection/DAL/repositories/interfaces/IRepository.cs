@@ -8,6 +8,6 @@ namespace DAL.repositories.interfaces {
         T ReadById(int id);
         T Create(T obj);
         T Update(T obj);
-        void Remove(T obj);
+        void Delete(T obj);
     }
 }
