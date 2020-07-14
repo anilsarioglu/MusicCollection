@@ -17,7 +17,7 @@ namespace DAL.entities
             
         }
 
-        public Song(int genreId, string title, int duration, string label, 
+        public Song(string title, int duration, string label, 
             List<SongPlaylist> songPlaylistList, List<SongArtist> songArtistList, List<SongGenre> songGenreList)
         {
             Title = title;
