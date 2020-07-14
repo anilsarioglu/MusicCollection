@@ -14,33 +14,23 @@ namespace DAL.dbConfigurations
                 .HasColumnType("int")
                 .IsRequired();
 
-            Property(c => c.GenreId)
-                .HasColumnName("GenreId")
-                .HasColumnOrder(1)
-                .HasColumnType("int")
-                .IsRequired();
-
             Property(c => c.Title)
                 .HasColumnName("Title")
-                .HasColumnOrder(2)
+                .HasColumnOrder(1)
                 .HasColumnType("varchar")
                 .IsRequired();
 
             Property(c => c.Duration)
                 .HasColumnName("Duration")
-                .HasColumnOrder(3)
+                .HasColumnOrder(2)
                 .HasColumnType("int")
                 .IsRequired();
 
             Property(c => c.Label)
                 .HasColumnName("Label")
-                .HasColumnOrder(4)
+                .HasColumnOrder(3)
                 .HasColumnType("varchar")
                 .IsRequired();
-
-            this.HasRequired<Genre>(i => i.Genre)
-                .WithMany(c => c.SongList)
-                .HasForeignKey<int>(i => i.GenreId);
         }
     }
 }

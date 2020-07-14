@@ -6,17 +6,17 @@ namespace DAL.entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<Song> SongList { get; set; }
+        public List<SongGenre> SongGenreList { get; set; }
 
         public Genre()
         {
             
         }
 
-        public Genre(string name, List<Song> songList)
+        public Genre(string name, List<SongGenre> songGenreList)
         {
             Name = name;
-            SongList = songList;
+            SongGenreList = songGenreList;
         }
     }
 }

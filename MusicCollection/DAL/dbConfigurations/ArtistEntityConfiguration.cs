@@ -14,27 +14,15 @@ namespace DAL.dbConfigurations
                 .HasColumnType("int")
                 .IsRequired();
 
-            Property(c => c.LastName)
-                .HasColumnName("LastName")
+            Property(c => c.Name)
+                .HasColumnName("Name")
                 .HasColumnOrder(1)
-                .HasColumnType("varchar")
-                .IsRequired();
-
-            Property(c => c.FirstName)
-                .HasColumnName("FirstName")
-                .HasColumnOrder(2)
-                .HasColumnType("varchar")
-                .IsRequired();
-
-            Property(c => c.ArtistName)
-                .HasColumnName("ArtistName")
-                .HasColumnOrder(3)
                 .HasColumnType("varchar")
                 .IsRequired();
 
             Property(c => c.Birthdate)
                 .HasColumnName("Birthdate")
-                .HasColumnOrder(4)
+                .HasColumnOrder(2)
                 .HasColumnType("date")
                 .IsRequired();
         }
