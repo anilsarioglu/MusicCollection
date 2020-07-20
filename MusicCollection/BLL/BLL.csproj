@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>abb3d16f-2aca-4da4-b0b0-23aec596ac08</ProjectGuid>
+    <ProjectGuid>425a04f0-3a3e-421e-8fe9-d5dcae5c1041</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BL</RootNamespace>
-    <AssemblyName>BL</AssemblyName>
+    <RootNamespace>BLL</RootNamespace>
+    <AssemblyName>BLL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
