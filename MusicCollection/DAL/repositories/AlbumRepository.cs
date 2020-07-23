@@ -67,11 +67,11 @@ namespace DAL.repositories
             }
         }
 
-        public void Delete(Album album)
+        public void Delete(int albumId)
         {
             try
             {
-                var existingAlbum = ReadById(album.Id);
+                var existingAlbum = ReadById(albumId);
                 _databaseContext.Albums.Remove(existingAlbum);
             }
             catch (Exception e)

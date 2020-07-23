@@ -67,11 +67,11 @@ namespace DAL.repositories
             }
         }
 
-        public void Delete(Playlist playlist)
+        public void Delete(int playlistId)
         {
             try
             {
-                var existingPlaylist = ReadById(playlist.Id);
+                var existingPlaylist = ReadById(playlistId);
                 _databaseContext.Playlists.Remove(existingPlaylist);
             }
             catch (Exception e)

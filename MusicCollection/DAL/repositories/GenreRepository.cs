@@ -67,11 +67,11 @@ namespace DAL.repositories
             }
         }
 
-        public void Delete(Genre genre)
+        public void Delete(int genreId)
         {
             try
             {
-                var existingGenre = ReadById(genre.Id);
+                var existingGenre = ReadById(genreId);
                 _databaseContext.Genres.Remove(existingGenre);
             }
             catch (Exception e)

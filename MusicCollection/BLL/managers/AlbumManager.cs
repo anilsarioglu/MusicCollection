@@ -34,9 +34,9 @@ namespace BLL.managers
             return _uow.AlbumRepository.Update(album);
         }
 
-        public void Delete(Album album)
+        public void Delete(int albumId)
         {
-            _uow.AlbumRepository.Delete(album);
+            _uow.AlbumRepository.Delete(albumId);
         }
     }
 }

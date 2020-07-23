@@ -34,9 +34,9 @@ namespace BLL.managers
             return _uow.SongRepository.Update(song);
         }
 
-        public void Delete(Song song)
+        public void Delete(int songId)
         {
-            _uow.SongRepository.Delete(song);
+            _uow.SongRepository.Delete(songId);
         }
     }
 }

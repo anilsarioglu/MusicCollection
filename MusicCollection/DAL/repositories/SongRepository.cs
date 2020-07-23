@@ -67,11 +67,11 @@ namespace DAL.repositories
             }
         }
 
-        public void Delete(Song song)
+        public void Delete(int songId)
         {
             try
             {
-                var existingSong = ReadById(song.Id);
+                var existingSong = ReadById(songId);
                 _databaseContext.Songs.Remove(existingSong);
             }
             catch (Exception e)

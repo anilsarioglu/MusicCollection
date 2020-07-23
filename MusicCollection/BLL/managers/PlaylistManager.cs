@@ -34,9 +34,9 @@ namespace BLL.managers
             return _uow.PlaylistRepository.Update(playlist);
         }
 
-        public void Delete(Playlist playlist)
+        public void Delete(int playlistId)
         {
-            _uow.PlaylistRepository.Delete(playlist);
+            _uow.PlaylistRepository.Delete(playlistId);
         }
     }
 }

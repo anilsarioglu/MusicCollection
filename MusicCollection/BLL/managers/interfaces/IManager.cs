@@ -8,6 +8,6 @@ namespace BLL.managers.interfaces
         T ReadById(int id);
         T Create(T obj);
         T Update(T obj);
-        void Delete(T obj);
+        void Delete(int id);
     }
 }

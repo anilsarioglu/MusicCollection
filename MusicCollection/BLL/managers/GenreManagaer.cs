@@ -34,9 +34,9 @@ namespace BLL.managers
             return _uow.GenreRepository.Update(genre);
         }
 
-        public void Delete(Genre genre)
+        public void Delete(int genreId)
         {
-            _uow.GenreRepository.Delete(genre);
+            _uow.GenreRepository.Delete(genreId);
         }
     }
 }
