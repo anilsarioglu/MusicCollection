@@ -45,6 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="autoMapper\Mapper.cs" />
+    <Compile Include="managers\SongManager.cs" />
+    <Compile Include="managers\AlbumManager.cs" />
+    <Compile Include="managers\ArtistManager.cs" />
+    <Compile Include="managers\GenreManagaer.cs" />
+    <Compile Include="managers\interfaces\IManager.cs" />
+    <Compile Include="managers\PlaylistManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,5 +66,6 @@
       <Name>Shared</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
