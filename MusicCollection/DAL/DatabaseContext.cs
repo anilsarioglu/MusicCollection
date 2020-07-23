@@ -15,7 +15,7 @@ namespace DAL
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Playlist> Playlists { get; set; }
-        public DbSet<Song> Songs { get; set; }
+        public DbSet<Track> Tracks { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -25,7 +25,7 @@ namespace DAL
             modelBuilder.Configurations.Add(new ArtistEntityConfiguration());
             modelBuilder.Configurations.Add(new GenreEntityConfiguration());
             modelBuilder.Configurations.Add(new PlaylistEntityConfiguration());
-            modelBuilder.Configurations.Add(new SongEntityConfiguration());
+            modelBuilder.Configurations.Add(new TrackEntityConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

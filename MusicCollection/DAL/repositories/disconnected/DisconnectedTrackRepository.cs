@@ -6,49 +6,49 @@ using DAL.repositories.interfaces;
 
 namespace DAL.repositories.disconnected
 {
-    public class DisconnectedSongRepository : IDisconnectedRepository<Song>
+    public class DisconnectedTrackRepository : IDisconnectedRepository<Track>
     {
-        public Song Create(Song song)
+        public Track Create(Track track)
         {
             using (var context = new DatabaseContext())
             {
-                var newSong = context.Songs.Add(song);
-                return newSong;
+                var newTrack = context.Tracks.Add(track);
+                return newTrack;
             }
         }
 
-        public IEnumerable<Song> ReadAll()
+        public IEnumerable<Track> ReadAll()
         {
             using (var context = new DatabaseContext())
             {
-                return context.Songs.ToList();
+                return context.Tracks.ToList();
             }
         }
 
-        public Song ReadById(int id)
+        public Track ReadById(int id)
         {
             using (var context = new DatabaseContext())
             {
-                return context.Songs.Find(id);
+                return context.Tracks.Find(id);
             }
         }
 
-        public Song Update(Song song)
+        public Track Update(Track track)
         {
             using (var context = new DatabaseContext())
             {
-                context.Entry(song).State = EntityState.Modified;
+                context.Entry(track).State = EntityState.Modified;
                 context.SaveChanges();
-                return song;
+                return track;
             }
         }
 
-        public void DeleteById(int songId)
+        public void DeleteById(int trackId)
         {
             using (var context = new DatabaseContext())
             {
-                var song = context.Songs.Find(songId);
-                context.Entry(song).State = EntityState.Deleted;
+                var track = context.Tracks.Find(trackId);
+                context.Entry(track).State = EntityState.Deleted;
                 context.SaveChanges();
             }
         }

@@ -11,7 +11,7 @@ namespace DAL.unitOfWork
         private ArtistRepository _artistRepository;
         private GenreRepository _genreRepository;
         private PlaylistRepository _playlistRepository;
-        private SongRepository _songRepository;
+        private TrackRepository _trackRepository;
 
         public AlbumRepository AlbumRepository
         {
@@ -65,16 +65,16 @@ namespace DAL.unitOfWork
             }
         }
 
-        public SongRepository SongRepository
+        public TrackRepository TrackRepository
         {
             get
             {
 
-                if (this._songRepository == null)
+                if (this._trackRepository == null)
                 {
-                    this._songRepository = new SongRepository(_databaseContext);
+                    this._trackRepository = new TrackRepository(_databaseContext);
                 }
-                return _songRepository;
+                return _trackRepository;
             }
         }
 

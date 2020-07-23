@@ -1,21 +1,21 @@
 ﻿namespace DAL.entities
 {
-    public class SongArtist
+    public class TrackArtist
     {
         public int Id { get; set; }
-        public int SongId { get; set; }
+        public int TrackId { get; set; }
         public int ArtistId { get; set; }
-        public Song Song { get; set; }
+        public Track Track { get; set; }
         public Artist Artist { get; set; }
 
-        public SongArtist()
+        public TrackArtist()
         {
             
         }
 
-        public SongArtist(int songId, int artistId)
+        public TrackArtist(int trackId, int artistId)
         {
-            SongId = songId;
+            TrackId = trackId;
             ArtistId = artistId;
         }
     }

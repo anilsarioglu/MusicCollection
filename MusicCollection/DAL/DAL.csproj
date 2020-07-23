@@ -56,15 +56,15 @@
     <Compile Include="dbConfigurations\ArtistEntityConfiguration.cs" />
     <Compile Include="dbConfigurations\GenreEntityConfiguration.cs" />
     <Compile Include="dbConfigurations\PlaylistEntityConfiguration.cs" />
-    <Compile Include="dbConfigurations\SongEntityConfiguration.cs" />
+    <Compile Include="dbConfigurations\TrackEntityConfiguration.cs" />
     <Compile Include="entities\Album.cs" />
     <Compile Include="entities\Artist.cs" />
     <Compile Include="entities\Genre.cs" />
     <Compile Include="entities\Playlist.cs" />
-    <Compile Include="entities\Song.cs" />
-    <Compile Include="entities\SongArtist.cs" />
-    <Compile Include="entities\SongGenre.cs" />
-    <Compile Include="entities\SongPlaylist.cs" />
+    <Compile Include="entities\Track.cs" />
+    <Compile Include="entities\TrackArtist.cs" />
+    <Compile Include="entities\TrackGenre.cs" />
+    <Compile Include="entities\PlaylistTrack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="repositories\AlbumRepository.cs" />
     <Compile Include="repositories\ArtistRepository.cs" />
@@ -72,12 +72,12 @@
     <Compile Include="repositories\disconnected\DisconnectedArtistRepository.cs" />
     <Compile Include="repositories\disconnected\DisconnectedGenreRepository.cs" />
     <Compile Include="repositories\disconnected\DisconnectedPlaylistRepository.cs" />
-    <Compile Include="repositories\disconnected\DisconnectedSongRepository.cs" />
+    <Compile Include="repositories\disconnected\DisconnectedTrackRepository.cs" />
     <Compile Include="repositories\GenreRepository.cs" />
     <Compile Include="repositories\interfaces\IDisconnectedRepository.cs" />
     <Compile Include="repositories\interfaces\IRepository.cs" />
     <Compile Include="repositories\PlaylistRepository.cs" />
-    <Compile Include="repositories\SongRepository.cs" />
+    <Compile Include="repositories\TrackRepository.cs" />
     <Compile Include="unitOfWork\DisconnectedUnitOfWork.cs" />
     <Compile Include="unitOfWork\UnitOfWork.cs" />
   </ItemGroup>

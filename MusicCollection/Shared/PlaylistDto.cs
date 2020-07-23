@@ -6,6 +6,6 @@ namespace Shared
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public List<SongPlaylistDto> SongPlaylistList { get; set; }
+        public List<PlaylistTrackDto> PlaylistTrackList { get; set; }
     }
 }

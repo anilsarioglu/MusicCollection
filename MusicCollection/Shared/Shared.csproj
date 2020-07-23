@@ -46,10 +46,10 @@
     <Compile Include="GenreDto.cs" />
     <Compile Include="PlaylistDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SongArtistDto.cs" />
-    <Compile Include="SongDto.cs" />
-    <Compile Include="SongGenreDto.cs" />
-    <Compile Include="SongPlaylistDto.cs" />
+    <Compile Include="TrackArtistDto.cs" />
+    <Compile Include="TrackDto.cs" />
+    <Compile Include="TrackGenreDto.cs" />
+    <Compile Include="PlaylistTrackDto.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="autoMapper\Mapper.cs" />
-    <Compile Include="managers\SongManager.cs" />
+    <Compile Include="managers\TrackManager.cs" />
     <Compile Include="managers\AlbumManager.cs" />
     <Compile Include="managers\ArtistManager.cs" />
     <Compile Include="managers\GenreManagaer.cs" />

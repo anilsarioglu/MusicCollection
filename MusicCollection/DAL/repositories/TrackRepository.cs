@@ -7,20 +7,20 @@ using DAL.repositories.interfaces;
 
 namespace DAL.repositories
 {
-    public class SongRepository : IRepository<Song>
+    public class TrackRepository : IRepository<Track>
     {
         private DatabaseContext _databaseContext;
-        public SongRepository(DatabaseContext databaseContext)
+        public TrackRepository(DatabaseContext databaseContext)
         {
             _databaseContext = databaseContext;
         }
 
-        public Song Create(Song song)
+        public Track Create(Track track)
         {
             try
             {
-                _databaseContext.Songs.Add(song);
-                return song;
+                _databaseContext.Tracks.Add(track);
+                return track;
             }
             catch (Exception e)
             {
@@ -29,11 +29,11 @@ namespace DAL.repositories
             }
         }
 
-        public IEnumerable<Song> ReadAll()
+        public IEnumerable<Track> ReadAll()
         {
             try
             {
-                return _databaseContext.Songs.ToList();
+                return _databaseContext.Tracks.ToList();
             }
             catch (Exception e)
             {
@@ -42,11 +42,11 @@ namespace DAL.repositories
 
         }   
 
-        public Song ReadById(int id)
+        public Track ReadById(int id)
         {
             try
             {
-                return _databaseContext.Songs.Find(id);
+                return _databaseContext.Tracks.Find(id);
             }
             catch (Exception e)
             {
@@ -54,12 +54,12 @@ namespace DAL.repositories
             }
         }
 
-        public Song Update(Song song)
+        public Track Update(Track track)
         {
             try
             {
-                _databaseContext.Songs.AddOrUpdate(song);
-                return song;
+                _databaseContext.Tracks.AddOrUpdate(track);
+                return track;
             }
             catch (Exception e)
             {
@@ -67,12 +67,12 @@ namespace DAL.repositories
             }
         }
 
-        public void Delete(int songId)
+        public void Delete(int trackId)
         {
             try
             {
-                var existingSong = ReadById(songId);
-                _databaseContext.Songs.Remove(existingSong);
+                var existingTrack = ReadById(trackId);
+                _databaseContext.Tracks.Remove(existingTrack);
             }
             catch (Exception e)
             {

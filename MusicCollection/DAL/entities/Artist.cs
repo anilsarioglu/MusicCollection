@@ -8,7 +8,7 @@ namespace DAL.entities
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime Birthdate { get; set; }
-        public List<SongArtist> SongArtistList { get; set; }
+        public List<TrackArtist> TrackArtistList { get; set; }
         public List<Album> AlbumList { get; set; }
 
         public Artist()
@@ -16,11 +16,11 @@ namespace DAL.entities
             
         }
 
-        public Artist(string name, DateTime birthdate, List<SongArtist> songArtistList, List<Album> albumList)
+        public Artist(string name, DateTime birthdate, List<TrackArtist> trackArtistList, List<Album> albumList)
         {
             Name = name;
             Birthdate = birthdate;
-            SongArtistList = songArtistList;
+            TrackArtistList = trackArtistList;
             AlbumList = albumList;
         }
     }

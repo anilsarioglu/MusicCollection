@@ -3,11 +3,11 @@ using DAL.entities;
 
 namespace DAL.dbConfigurations
 {
-    public class SongEntityConfiguration : EntityTypeConfiguration<Song>
+    public class TrackEntityConfiguration : EntityTypeConfiguration<Track>
     {
-        public SongEntityConfiguration()
+        public TrackEntityConfiguration()
         {
-            ToTable("Song").HasKey<int>(t => t.Id)
+            ToTable("Track").HasKey<int>(t => t.Id)
                 .Property(c => c.Id)
                 .HasColumnName("Id")
                 .HasColumnOrder(0)

@@ -8,7 +8,7 @@ namespace DAL.unitOfWork
         private DisconnectedArtistRepository _artistRepository;
         private DisconnectedGenreRepository _genreRepository;
         private DisconnectedPlaylistRepository _playlistRepository;
-        private DisconnectedSongRepository _songRepository;
+        private DisconnectedTrackRepository _trackRepository;
 
         public DisconnectedAlbumRepository AlbumRepository
         {
@@ -62,16 +62,16 @@ namespace DAL.unitOfWork
             }
         }
 
-        public DisconnectedSongRepository SongRepository
+        public DisconnectedTrackRepository TrackRepository
         {
             get
             {
 
-                if (this._songRepository == null)
+                if (this._trackRepository == null)
                 {
-                    this._songRepository = new DisconnectedSongRepository();
+                    this._trackRepository = new DisconnectedTrackRepository();
                 }
-                return _songRepository;
+                return _trackRepository;
             }
         }
     }
