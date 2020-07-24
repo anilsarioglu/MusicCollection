@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BLL.managers.interfaces;
 using DAL.entities;
 using DAL.unitOfWork;
@@ -16,12 +17,14 @@ namespace BLL.managers
 
         public IEnumerable<Album> ReadAll()
         {
-            return _uow.AlbumRepository.ReadAll();
+            var albums = _uow.AlbumRepository.ReadAll().ToList();
+
+            return Utils.IsAny(albums) ? albums : null;
         }
 
         public Album ReadById(int id)
         {
-           return _uow.AlbumRepository.ReadById(id);
+            return _uow.AlbumRepository.ReadById(id);
         }
 
         public Album Create(Album album)

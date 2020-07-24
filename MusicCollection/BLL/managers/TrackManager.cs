@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BLL.managers.interfaces;
 using DAL.entities;
 using DAL.unitOfWork;
@@ -16,7 +17,9 @@ namespace BLL.managers
 
         public IEnumerable<Track> ReadAll()
         {
-            return _uow.TrackRepository.ReadAll();
+            var tracks = _uow.TrackRepository.ReadAll().ToList();
+
+            return Utils.IsAny(tracks) ? tracks : null;
         }
 
         public Track ReadById(int id)

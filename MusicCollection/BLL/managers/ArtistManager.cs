@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BLL.managers.interfaces;
 using DAL.entities;
 using DAL.unitOfWork;
@@ -16,7 +17,9 @@ namespace BLL.managers
 
         public IEnumerable<Artist> ReadAll()
         {
-            return _uow.ArtistRepository.ReadAll();
+            var artists = _uow.ArtistRepository.ReadAll().ToList();
+
+            return Utils.IsAny(artists) ? artists : null;
         }
 
         public Artist ReadById(int id)
