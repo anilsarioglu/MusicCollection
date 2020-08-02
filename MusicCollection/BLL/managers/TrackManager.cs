@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BLL.autoMapper;
 using BLL.managers.interfaces;
 using DAL.entities;
 using DAL.unitOfWork;
+using Shared;
 
 namespace BLL.managers
 {
-    public class TrackManager : IManager<Track>
+    public class TrackManager : IManager<TrackDto>
     {
         private DisconnectedUnitOfWork _uow;
 
@@ -15,26 +17,34 @@ namespace BLL.managers
             _uow = uow;
         }
 
-        public IEnumerable<Track> ReadAll()
+        public IEnumerable<TrackDto> ReadAll()
         {
-            var tracks = _uow.TrackRepository.ReadAll().ToList();
+            var tracks = Mapper.Map<IEnumerable<Track>, IEnumerable<TrackDto>>(_uow.TrackRepository.ReadAll().ToList());
 
             return Utils.IsAny(tracks) ? tracks : null;
         }
 
-        public Track ReadById(int id)
+        public TrackDto ReadById(int id)
         {
-            return _uow.TrackRepository.ReadById(id);
+            var track = _uow.TrackRepository.ReadById(id);
+
+            return track == null ? null : Mapper.Map<Track, TrackDto>(track);
         }
 
-        public Track Create(Track track)
+        public TrackDto Create(TrackDto trackDto)
         {
-            return _uow.TrackRepository.Create(track);
+            var track = Mapper.Map<TrackDto, Track>(trackDto);
+            _uow.TrackRepository.Create(track);
+
+            trackDto.Id = track.Id;
+
+            return trackDto;
         }
 
-        public Track Update(Track track)
+        public TrackDto Update(TrackDto trackDto)
         {
-            return _uow.TrackRepository.Update(track);
+            _uow.TrackRepository.Update(Mapper.Map<TrackDto, Track>(trackDto));
+            return trackDto;
         }
 
         public void Delete(int trackId)

@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BLL.autoMapper;
 using BLL.managers.interfaces;
 using DAL.entities;
 using DAL.unitOfWork;
+using Shared;
 
 namespace BLL.managers
 {
-    public class AlbumManager : IManager<Album>
+    public class AlbumManager : IManager<AlbumDto>
     {
         private DisconnectedUnitOfWork _uow;
 
@@ -15,26 +17,34 @@ namespace BLL.managers
             _uow = uow;
         }
 
-        public IEnumerable<Album> ReadAll()
+        public IEnumerable<AlbumDto> ReadAll()
         {
-            var albums = _uow.AlbumRepository.ReadAll().ToList();
+            var albums = Mapper.Map<IEnumerable<Album>, IEnumerable<AlbumDto>>(_uow.AlbumRepository.ReadAll().ToList());
 
             return Utils.IsAny(albums) ? albums : null;
         }
 
-        public Album ReadById(int id)
+        public AlbumDto ReadById(int id)
         {
-            return _uow.AlbumRepository.ReadById(id);
+            var album = _uow.AlbumRepository.ReadById(id);
+
+            return album == null ? null : Mapper.Map<Album, AlbumDto>(album);
         }
 
-        public Album Create(Album album)
+        public AlbumDto Create(AlbumDto albumDto)
         {
-            return _uow.AlbumRepository.Create(album);
+            var album = Mapper.Map<AlbumDto, Album>(albumDto);
+            _uow.AlbumRepository.Create(album);
+
+            albumDto.Id = album.Id;
+
+            return albumDto;
         }
 
-        public Album Update(Album album)
+        public AlbumDto Update(AlbumDto albumDto)
         {
-            return _uow.AlbumRepository.Update(album);
+            _uow.AlbumRepository.Update(Mapper.Map<AlbumDto, Album>(albumDto));
+            return albumDto;
         }
 
         public void Delete(int albumId)

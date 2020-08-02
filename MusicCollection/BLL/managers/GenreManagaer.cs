@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BLL.autoMapper;
 using BLL.managers.interfaces;
 using DAL.entities;
 using DAL.unitOfWork;
+using Shared;
 
 namespace BLL.managers
 {
-    public class GenreManager : IManager<Genre>
+    public class GenreManager : IManager<GenreDto>
     {
         private DisconnectedUnitOfWork _uow;
 
@@ -15,26 +17,34 @@ namespace BLL.managers
             _uow = uow;
         }
 
-        public IEnumerable<Genre> ReadAll()
+        public IEnumerable<GenreDto> ReadAll()
         {
-            var genres = _uow.GenreRepository.ReadAll().ToList();
+            var genres = Mapper.Map<IEnumerable<Genre>, IEnumerable<GenreDto>>(_uow.GenreRepository.ReadAll().ToList());
 
             return Utils.IsAny(genres) ? genres : null;
         }
 
-        public Genre ReadById(int id)
+        public GenreDto ReadById(int id)
         {
-            return _uow.GenreRepository.ReadById(id);
+            var genre = _uow.GenreRepository.ReadById(id);
+
+            return genre == null ? null : Mapper.Map<Genre, GenreDto>(genre);
         }
 
-        public Genre Create(Genre genre)
+        public GenreDto Create(GenreDto genreDto)
         {
-            return _uow.GenreRepository.Create(genre);
+            var genre = Mapper.Map<GenreDto, Genre>(genreDto);
+            _uow.GenreRepository.Create(genre);
+
+            genreDto.Id = genre.Id;
+
+            return genreDto;
         }
 
-        public Genre Update(Genre genre)
+        public GenreDto Update(GenreDto genreDto)
         {
-            return _uow.GenreRepository.Update(genre);
+            _uow.GenreRepository.Update(Mapper.Map<GenreDto, Genre>(genreDto));
+            return genreDto;
         }
 
         public void Delete(int genreId)

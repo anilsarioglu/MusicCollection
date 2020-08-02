@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BLL.autoMapper;
 using BLL.managers.interfaces;
 using DAL.entities;
 using DAL.unitOfWork;
+using Shared;
 
 namespace BLL.managers
 {
-    public class PlaylistManager : IManager<Playlist>
+    public class PlaylistManager : IManager<PlaylistDto>
     {
         private DisconnectedUnitOfWork _uow;
 
@@ -15,26 +17,34 @@ namespace BLL.managers
             _uow = uow;
         }
 
-        public IEnumerable<Playlist> ReadAll()
+        public IEnumerable<PlaylistDto> ReadAll()
         {
-            var playlists = _uow.PlaylistRepository.ReadAll().ToList();
+            var playlists = Mapper.Map<IEnumerable<Playlist>, IEnumerable<PlaylistDto>>(_uow.PlaylistRepository.ReadAll().ToList());
 
             return Utils.IsAny(playlists) ? playlists : null;
         }
 
-        public Playlist ReadById(int id)
+        public PlaylistDto ReadById(int id)
         {
-            return _uow.PlaylistRepository.ReadById(id);
+            var playlist = _uow.PlaylistRepository.ReadById(id);
+
+            return playlist == null ? null : Mapper.Map<Playlist, PlaylistDto>(playlist);
         }
 
-        public Playlist Create(Playlist playlist)
+        public PlaylistDto Create(PlaylistDto playlistDto)
         {
-            return _uow.PlaylistRepository.Create(playlist);
+            var playlist = Mapper.Map<PlaylistDto, Playlist>(playlistDto);
+            _uow.PlaylistRepository.Create(playlist);
+
+            playlistDto.Id = playlist.Id;
+
+            return playlistDto;
         }
 
-        public Playlist Update(Playlist playlist)
+        public PlaylistDto Update(PlaylistDto playlistDto)
         {
-            return _uow.PlaylistRepository.Update(playlist);
+            _uow.PlaylistRepository.Update(Mapper.Map<PlaylistDto, Playlist>(playlistDto));
+            return playlistDto;
         }
 
         public void Delete(int playlistId)

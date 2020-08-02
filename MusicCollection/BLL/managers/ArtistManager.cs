@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BLL.autoMapper;
 using BLL.managers.interfaces;
 using DAL.entities;
 using DAL.unitOfWork;
+using Shared;
 
 namespace BLL.managers
 {
-    public class ArtistManager : IManager<Artist>
+    public class ArtistManager : IManager<ArtistDto>
     {
         private DisconnectedUnitOfWork _uow;
 
@@ -15,26 +17,33 @@ namespace BLL.managers
             _uow = uow;
         }
 
-        public IEnumerable<Artist> ReadAll()
+        public IEnumerable<ArtistDto> ReadAll()
         {
-            var artists = _uow.ArtistRepository.ReadAll().ToList();
+            var artists = Mapper.Map<IEnumerable<Artist>, IEnumerable<ArtistDto>>(_uow.ArtistRepository.ReadAll().ToList());
 
             return Utils.IsAny(artists) ? artists : null;
         }
 
-        public Artist ReadById(int id)
+        public ArtistDto ReadById(int id)
         {
-            return _uow.ArtistRepository.ReadById(id);
+            var artist = _uow.ArtistRepository.ReadById(id);
+            return artist == null ? null : Mapper.Map<Artist, ArtistDto>(artist);
         }
 
-        public Artist Create(Artist artist)
+        public ArtistDto Create(ArtistDto artistDto)
         {
-            return _uow.ArtistRepository.Create(artist);
+            var artist = Mapper.Map<ArtistDto, Artist>(artistDto);
+            _uow.ArtistRepository.Create(artist);
+
+            artistDto.Id = artist.Id;
+
+            return artistDto;
         }
 
-        public Artist Update(Artist artist)
+        public ArtistDto Update(ArtistDto artistDto)
         {
-            return _uow.ArtistRepository.Update(artist);
+            _uow.ArtistRepository.Update(Mapper.Map<ArtistDto, Artist>(artistDto));
+            return artistDto;
         }
 
         public void Delete(int artistId)
