@@ -8,11 +8,11 @@ namespace BLL.managers
 {
     public class TrackManager : IManager<Track>
     {
-        private UnitOfWork _uow;
+        private DisconnectedUnitOfWork _uow;
 
         public TrackManager()
         {
-            _uow = new UnitOfWork();
+            _uow = new DisconnectedUnitOfWork();
         }
 
         public IEnumerable<Track> ReadAll()
@@ -39,7 +39,7 @@ namespace BLL.managers
 
         public void Delete(int trackId)
         {
-            _uow.TrackRepository.Delete(trackId);
+            _uow.TrackRepository.DeleteById(trackId);
         }
     }
 }

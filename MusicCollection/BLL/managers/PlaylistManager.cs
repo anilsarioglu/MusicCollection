@@ -8,11 +8,11 @@ namespace BLL.managers
 {
     public class PlaylistManager : IManager<Playlist>
     {
-        private UnitOfWork _uow;
+        private DisconnectedUnitOfWork _uow;
 
         public PlaylistManager()
         {
-            _uow = new UnitOfWork();
+            _uow = new DisconnectedUnitOfWork();
         }
 
         public IEnumerable<Playlist> ReadAll()
@@ -39,7 +39,7 @@ namespace BLL.managers
 
         public void Delete(int playlistId)
         {
-            _uow.PlaylistRepository.Delete(playlistId);
+            _uow.PlaylistRepository.DeleteById(playlistId);
         }
     }
 }

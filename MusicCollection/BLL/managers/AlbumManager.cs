@@ -8,11 +8,11 @@ namespace BLL.managers
 {
     public class AlbumManager : IManager<Album>
     {
-        private UnitOfWork _uow;
+        private DisconnectedUnitOfWork _uow;
 
         public AlbumManager()
         {
-            _uow = new UnitOfWork();
+            _uow = new DisconnectedUnitOfWork();
         }
 
         public IEnumerable<Album> ReadAll()
@@ -39,7 +39,7 @@ namespace BLL.managers
 
         public void Delete(int albumId)
         {
-            _uow.AlbumRepository.Delete(albumId);
+            _uow.AlbumRepository.DeleteById(albumId);
         }
     }
 }

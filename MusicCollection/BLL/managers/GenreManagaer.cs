@@ -8,11 +8,11 @@ namespace BLL.managers
 {
     public class GenreManager : IManager<Genre>
     {
-        private UnitOfWork _uow;
+        private DisconnectedUnitOfWork _uow;
 
         public GenreManager()
         {
-            _uow = new UnitOfWork();
+            _uow = new DisconnectedUnitOfWork();
         }
 
         public IEnumerable<Genre> ReadAll()
@@ -39,7 +39,7 @@ namespace BLL.managers
 
         public void Delete(int genreId)
         {
-            _uow.GenreRepository.Delete(genreId);
+            _uow.GenreRepository.DeleteById(genreId);
         }
     }
 }
