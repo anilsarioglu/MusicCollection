@@ -10,9 +10,9 @@ namespace BLL.managers
     {
         private DisconnectedUnitOfWork _uow;
 
-        public AlbumManager()
+        public AlbumManager(DisconnectedUnitOfWork uow)
         {
-            _uow = new DisconnectedUnitOfWork();
+            _uow = uow;
         }
 
         public IEnumerable<Album> ReadAll()

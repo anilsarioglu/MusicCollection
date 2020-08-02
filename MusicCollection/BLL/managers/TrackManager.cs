@@ -10,9 +10,9 @@ namespace BLL.managers
     {
         private DisconnectedUnitOfWork _uow;
 
-        public TrackManager()
+        public TrackManager(DisconnectedUnitOfWork uow)
         {
-            _uow = new DisconnectedUnitOfWork();
+            _uow = uow;
         }
 
         public IEnumerable<Track> ReadAll()

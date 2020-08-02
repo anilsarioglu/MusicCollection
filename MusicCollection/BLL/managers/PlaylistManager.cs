@@ -10,9 +10,9 @@ namespace BLL.managers
     {
         private DisconnectedUnitOfWork _uow;
 
-        public PlaylistManager()
+        public PlaylistManager(DisconnectedUnitOfWork uow)
         {
-            _uow = new DisconnectedUnitOfWork();
+            _uow = uow;
         }
 
         public IEnumerable<Playlist> ReadAll()

@@ -10,9 +10,9 @@ namespace BLL.managers
     {
         private DisconnectedUnitOfWork _uow;
 
-        public GenreManager()
+        public GenreManager(DisconnectedUnitOfWork uow)
         {
-            _uow = new DisconnectedUnitOfWork();
+            _uow = uow;
         }
 
         public IEnumerable<Genre> ReadAll()
