@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Hosting;
+﻿using System.Linq;
 using System.Web.Http;
 using BLL.managers;
 using BLL.managers.interfaces;
@@ -13,17 +8,17 @@ namespace SL.Controllers
 {
     public class AlbumController : ApiController
     {
-        private AlbumManager _albumManager;
+        private IManager<AlbumDto> _manager;
 
-        public AlbumController()
+        public AlbumController(IManager<AlbumDto> manager)
         {
-            _albumManager = new AlbumManager();
+            _manager = manager;
         }
 
         // GET: api/Album
         public IHttpActionResult GetAlbums()
         {
-            return Ok(_albumManager.ReadAll().AsEnumerable());
+            return Ok(_manager.ReadAll().AsEnumerable());
         }
 
         // GET: api/Album/5
