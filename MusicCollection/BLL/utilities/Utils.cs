@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace BLL
+namespace BLL.utilities
 {
     public static class Utils
     {

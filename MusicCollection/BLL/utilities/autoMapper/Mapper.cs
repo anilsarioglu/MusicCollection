@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace BLL.autoMapper
+namespace BLL.utilities.autoMapper
 {
     internal class Mapper
     {

@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using BLL.autoMapper;
 using BLL.managers.interfaces;
+using BLL.utilities;
+using BLL.utilities.autoMapper;
+using BLL.utilities.logger;
 using DAL.entities;
 using DAL.unitOfWork;
 using Shared;
@@ -19,37 +22,84 @@ namespace BLL.managers
 
         public IEnumerable<AlbumDto> ReadAll()
         {
-            var albums = Mapper.Map<IEnumerable<Album>, IEnumerable<AlbumDto>>(_uow.AlbumRepository.ReadAll().ToList());
+            try
+            {
+                var albums = Mapper.Map<IEnumerable<Album>, IEnumerable<AlbumDto>>(_uow.AlbumRepository.ReadAll().ToList());
 
-            return Utils.IsAny(albums) ? albums : null;
+
+                MyLogger.GetInstance().Info("Returned all albums");
+                return Utils.IsAny(albums) ? albums : null;
+            }
+            catch (Exception e)
+            {
+                MyLogger.GetInstance().Error("Couldn't return all albums", e.Message);
+                throw new Exception(e.Message);
+            }
         }
 
         public AlbumDto ReadById(int id)
         {
-            var album = _uow.AlbumRepository.ReadById(id);
+            try
+            {
+                var album = _uow.AlbumRepository.ReadById(id);
 
-            return album == null ? null : Mapper.Map<Album, AlbumDto>(album);
+                MyLogger.GetInstance().Info($"Returned the album with id: {id}");
+                return album == null ? null : Mapper.Map<Album, AlbumDto>(album);
+            }
+            catch (Exception e)
+            {
+                MyLogger.GetInstance().Error($"Couldn't return the album with id: {id}", e.Message);
+                throw new Exception(e.Message);
+            }
         }
 
         public AlbumDto Create(AlbumDto albumDto)
         {
-            var album = Mapper.Map<AlbumDto, Album>(albumDto);
-            _uow.AlbumRepository.Create(album);
+            try
+            {
+                var album = Mapper.Map<AlbumDto, Album>(albumDto);
+                _uow.AlbumRepository.Create(album);
 
-            albumDto.Id = album.Id;
+                albumDto.Id = album.Id;
 
-            return albumDto;
+                MyLogger.GetInstance().Info($"Created the given album: {albumDto}");
+                return albumDto;
+            }
+            catch (Exception e)
+            {
+                MyLogger.GetInstance().Error($"Couldn't create the given album: {albumDto}", e.Message);
+                throw new Exception(e.Message);
+            }
         }
 
         public AlbumDto Update(AlbumDto albumDto)
         {
-            _uow.AlbumRepository.Update(Mapper.Map<AlbumDto, Album>(albumDto));
-            return albumDto;
+            try
+            {
+                _uow.AlbumRepository.Update(Mapper.Map<AlbumDto, Album>(albumDto));
+
+                MyLogger.GetInstance().Info($"Updated with the given album: {albumDto}");
+                return albumDto;
+            }
+            catch (Exception e)
+            {
+                MyLogger.GetInstance().Error($"Couldn't update with the given album: {albumDto}", e.Message);
+                throw new Exception(e.Message);
+            }
         }
 
-        public void Delete(int albumId)
+        public void Delete(int id)
         {
-            _uow.AlbumRepository.DeleteById(albumId);
+            try
+            {
+                _uow.AlbumRepository.DeleteById(id);
+                MyLogger.GetInstance().Info($"Removed the album with id: {id}");
+            }
+            catch (Exception e)
+            {
+                MyLogger.GetInstance().Error($"Couldn't remove the album with id: {id}", e.Message);
+                throw new Exception(e.Message);
+            }
         }
     }
 }
