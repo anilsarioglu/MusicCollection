@@ -11,9 +11,14 @@ namespace SL.Controllers
     {
         private IManager<TrackDto> _trackManager;
 
-        public TracksController(TrackManager trackManager)
+        //public TracksController(TrackManager trackManager)
+        //{
+        //    _trackManager = trackManager;
+        //}
+
+        public TracksController()
         {
-            _trackManager = trackManager;
+            _trackManager = new TrackManager();
         }
 
         // GET: api/Tracks

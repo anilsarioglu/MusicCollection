@@ -15,16 +15,21 @@ namespace BLL.managers
     {
         private DisconnectedUnitOfWork _uow;
 
-        public GenreManager(DisconnectedUnitOfWork uow)
+        //public GenreManager(DisconnectedUnitOfWork uow)
+        //{
+        //    _uow = uow;
+        //}
+
+        public GenreManager()
         {
-            _uow = uow;
+            _uow = new DisconnectedUnitOfWork();
         }
 
         public IEnumerable<GenreDto> ReadAll()
         {
             try
             {
-                var genres = Mapper.Map<IEnumerable<Genre>, IEnumerable<GenreDto>>(_uow.GenreRepository.ReadAll().ToList());
+                var genres = Mapper.MapList<Genre, GenreDto>(_uow.GenreRepository.ReadAll().ToList());
 
 
                 MyLogger.GetInstance().Info("Returned all genres");

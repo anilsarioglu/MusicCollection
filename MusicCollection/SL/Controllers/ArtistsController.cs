@@ -11,9 +11,14 @@ namespace SL.Controllers
     {
         private IManager<ArtistDto> _artistManager;
 
-        public ArtistsController(ArtistManager artistManager)
+        //public ArtistsController(ArtistManager artistManager)
+        //{
+        //    _artistManager = artistManager;
+        //}
+
+        public ArtistsController()
         {
-            _artistManager = artistManager;
+            _artistManager = new ArtistManager();
         }
 
         // GET: api/Artists

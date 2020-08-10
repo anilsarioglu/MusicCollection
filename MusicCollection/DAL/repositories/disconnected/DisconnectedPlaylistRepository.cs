@@ -13,6 +13,7 @@ namespace DAL.repositories.disconnected
             using (var context = new DatabaseContext())
             {
                 var newPlaylist = context.Playlists.Add(playlist);
+                context.SaveChanges();
                 return newPlaylist;
             }
         }

@@ -11,9 +11,14 @@ namespace SL.Controllers
     {
         private IManager<AlbumDto> _albumManager;
 
-        public AlbumsController(AlbumManager albumManager)
+        //public AlbumsController(AlbumManager albumManager)
+        //{
+        //    _albumManager = albumManager;
+        //}
+
+        public AlbumsController()
         {
-            _albumManager = albumManager;
+            _albumManager = new AlbumManager();
         }
 
         // GET: api/Albums

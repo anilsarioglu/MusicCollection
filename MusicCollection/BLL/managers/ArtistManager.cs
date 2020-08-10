@@ -15,17 +15,22 @@ namespace BLL.managers
     {
         private DisconnectedUnitOfWork _uow;
 
-        public ArtistManager(DisconnectedUnitOfWork uow)
+        //public ArtistManager(DisconnectedUnitOfWork uow)
+        //{
+        //    _uow = uow;
+        //}
+
+        public ArtistManager()
         {
-            _uow = uow;
+            _uow = new DisconnectedUnitOfWork();
         }
 
         public IEnumerable<ArtistDto> ReadAll()
         {
             try
             {
-                var artists = Mapper.Map<IEnumerable<Artist>, IEnumerable<ArtistDto>>(_uow.ArtistRepository.ReadAll().ToList());
-
+                //var artists = Mapper.Map<List<Artist>, List<ArtistDto>>(_uow.ArtistRepository.ReadAll().ToList());
+                var artists = Mapper.MapList<Artist, ArtistDto>(_uow.ArtistRepository.ReadAll().ToList());
 
                 MyLogger.GetInstance().Info("Returned all artists");
                 return Utils.IsAny(artists) ? artists : null;

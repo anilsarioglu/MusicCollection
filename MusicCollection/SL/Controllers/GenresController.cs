@@ -11,9 +11,14 @@ namespace SL.Controllers
     {
         private IManager<GenreDto> _genreManager;
 
-        public GenresController(GenreManager genreManager)
+        //public GenresController(GenreManager genreManager)
+        //{
+        //    _genreManager = genreManager;
+        //}
+
+        public GenresController()
         {
-            _genreManager = genreManager;
+            _genreManager = new GenreManager();
         }
 
         // GET: api/Genres

@@ -11,9 +11,14 @@ namespace SL.Controllers
     {
         private IManager<PlaylistDto> _playlistManager;
 
-        public PlaylistsController(PlaylistManager playlistManager)
+        //public PlaylistsController(PlaylistManager playlistManager)
+        //{
+        //    _playlistManager = playlistManager;
+        //}
+
+        public PlaylistsController()
         {
-            _playlistManager = playlistManager;
+            _playlistManager = new PlaylistManager();
         }
 
         // GET: api/Playlists

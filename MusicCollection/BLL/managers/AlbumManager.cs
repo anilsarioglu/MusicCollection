@@ -15,16 +15,21 @@ namespace BLL.managers
     {
         private DisconnectedUnitOfWork _uow;
 
-        public AlbumManager(DisconnectedUnitOfWork uow)
+        //public AlbumManager(DisconnectedUnitOfWork uow)
+        //{
+        //    _uow = uow;
+        //}
+
+        public AlbumManager()
         {
-            _uow = uow;
+            _uow = new DisconnectedUnitOfWork();
         }
 
         public IEnumerable<AlbumDto> ReadAll()
         {
             try
             {
-                var albums = Mapper.Map<IEnumerable<Album>, IEnumerable<AlbumDto>>(_uow.AlbumRepository.ReadAll().ToList());
+                var albums = Mapper.MapList<Album, AlbumDto>(_uow.AlbumRepository.ReadAll().ToList());
 
 
                 MyLogger.GetInstance().Info("Returned all albums");

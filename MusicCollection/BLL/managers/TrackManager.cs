@@ -15,16 +15,21 @@ namespace BLL.managers
     {
         private DisconnectedUnitOfWork _uow;
 
-        public TrackManager(DisconnectedUnitOfWork uow)
+        //public TrackManager(DisconnectedUnitOfWork uow)
+        //{
+        //    _uow = uow;
+        //}
+
+        public TrackManager()
         {
-            _uow = uow;
+            _uow = new DisconnectedUnitOfWork();
         }
 
         public IEnumerable<TrackDto> ReadAll()
         {
             try
             {
-                var tracks = Mapper.Map<IEnumerable<Track>, IEnumerable<TrackDto>>(_uow.TrackRepository.ReadAll().ToList());
+                var tracks = Mapper.MapList<Track, TrackDto>(_uow.TrackRepository.ReadAll().ToList());
 
 
                 MyLogger.GetInstance().Info("Returned all tracks");
