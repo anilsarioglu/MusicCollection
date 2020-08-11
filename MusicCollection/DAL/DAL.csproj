@@ -65,13 +65,9 @@
     <Compile Include="entities\TrackArtist.cs" />
     <Compile Include="entities\TrackGenre.cs" />
     <Compile Include="entities\PlaylistTrack.cs" />
-    <Compile Include="Migrations\202008041510103_Initial.cs" />
-    <Compile Include="Migrations\202008041510103_Initial.designer.cs">
-      <DependentUpon>202008041510103_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202008041543278_Seed.cs" />
-    <Compile Include="Migrations\202008041543278_Seed.designer.cs">
-      <DependentUpon>202008041543278_Seed.cs</DependentUpon>
+    <Compile Include="Migrations\202008112023064_Initial.cs" />
+    <Compile Include="Migrations\202008112023064_Initial.designer.cs">
+      <DependentUpon>202008112023064_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,11 +91,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202008041510103_Initial.resx">
-      <DependentUpon>202008041510103_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202008041543278_Seed.resx">
-      <DependentUpon>202008041543278_Seed.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202008112023064_Initial.resx">
+      <DependentUpon>202008112023064_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
