@@ -60,7 +60,7 @@ namespace UI_MVC
             }
         }
 
-        internal static void EditObject(string path, string id, T t)
+        internal static void UpdateObject(string path, string id, T t)
         {
             using (var client = new HttpClient())
             {
