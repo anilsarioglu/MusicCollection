@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Genres</h2>
+@if (Model == null)
+{
+    <p>We don't have any genres yet.</p>
+}
+
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var genreDto in Model)
+        {
+            <tr>
+                <td>@genreDto.Name</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+

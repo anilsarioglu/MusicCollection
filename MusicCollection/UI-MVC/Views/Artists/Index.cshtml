@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Shared.ArtistDto>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Artists</h2>
+@if (Model == null)
+{
+    <p>There are no artists yet.</p>
+}
+
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Artist</th>
+            <th>Birthdate</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var artistDto in Model)
+        {
+            <tr>
+                <td>@artistDto.Name</td>
+                <td>@artistDto.Birthdate</td>
+            </tr>
+        }
+    </tbody>
+    </table>
+}

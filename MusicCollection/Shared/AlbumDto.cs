@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shared
 {
@@ -7,7 +8,10 @@ namespace Shared
         public int Id { get; set; }
         public int ArtistId { get; set; }
         public string Name { get; set; }
+
+        [Display(Name = "Date of Release")]
         public DateTime ReleaseDate { get; set; }
+
         public ArtistDto Artist { get; set; }
     }
 }

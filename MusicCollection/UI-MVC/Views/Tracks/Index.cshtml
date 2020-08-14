@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Shared.TrackDto>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Tracks</h2>
+
+@if (Model == null)
+{
+    <p>We don't have any tracks yet.</p>
+}
+
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Duration</th>
+                <th>Label</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var trackDto in Model)
+            {
+                <tr>
+                    <td>@trackDto.Title</td>
+                    <td>@trackDto.Duration</td>
+                    <td>@trackDto.Label</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

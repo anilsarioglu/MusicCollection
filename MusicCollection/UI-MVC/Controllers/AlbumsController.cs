@@ -4,30 +4,30 @@ using Shared;
 
 namespace UI_MVC.Controllers
 {
-    public class ArtistsController : Controller
+    public class AlbumsController : Controller
     {
-        private const string PATH = "artists";
-        private readonly IEnumerable<ArtistDto> _artists = ApiConsumer<ArtistDto>.GetApi(PATH);
+        private const string PATH = "albums";
+        private readonly IEnumerable<AlbumDto> _albums = ApiConsumer<AlbumDto>.GetApi(PATH);
 
-        // GET: Artists
+        // GET: Albums
         public ActionResult Index()
         {
-            return View(_artists);
+            return View(_albums);
         }
 
-        // GET: Artists/Create
+        // GET: Albums/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Artists/Create
+        // POST: Albums/Create
         [HttpPost]
-        public ActionResult Create(ArtistDto artistDto)
+        public ActionResult Create(AlbumDto albumDto)
         {
             try
             {
-                ApiConsumer<ArtistDto>.CreateObject(PATH, artistDto);
+                ApiConsumer<AlbumDto>.CreateObject(PATH, albumDto);
                 return RedirectToAction("Index");
             }
             catch

@@ -12,7 +12,7 @@ namespace UI_MVC
             IEnumerable<T> objects = null;
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:56396/api/");
+                client.BaseAddress = new Uri("http://localhost:56396/api/");
                 var responseTask = client.GetAsync(path);
                 responseTask.Wait();
 
@@ -33,7 +33,7 @@ namespace UI_MVC
             T objects = null;
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:56396/api/");
+                client.BaseAddress = new Uri("http://localhost:56396/api/");
                 var responseTask = client.GetAsync(path + "/" + id);
                 responseTask.Wait();
 
@@ -49,11 +49,11 @@ namespace UI_MVC
             }
         }
 
-        internal static void AddObject(string path, T t)
+        internal static void CreateObject(string path, T t)
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:56396/api/");
+                client.BaseAddress = new Uri("http://localhost:56396/api/");
 
                 var postTask = client.PostAsJsonAsync<T>(path, t);
                 postTask.Wait();
@@ -64,7 +64,7 @@ namespace UI_MVC
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:56396/api/");
+                client.BaseAddress = new Uri("http://localhost:56396/api/");
 
                 var putTask = client.PutAsJsonAsync<T>(path, t);
                 putTask.Wait();
@@ -75,7 +75,7 @@ namespace UI_MVC
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:56396/api/");
+                client.BaseAddress = new Uri("http://localhost:56396/api/");
                 var url = client.BaseAddress + path + "/" + id;
                 var deleteTask = client.DeleteAsync(url);
                 deleteTask.Wait();

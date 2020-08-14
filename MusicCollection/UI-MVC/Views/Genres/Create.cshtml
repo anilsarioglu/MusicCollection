@@ -1,21 +1,19 @@
-﻿@model Shared.ArtistDto
+﻿@model Shared.GenreDto
 
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>New Artist</h2>
+<h2>New Genre</h2>
 
-@using (Html.BeginForm("Create", "Artists"))
+@using (Html.BeginForm("Create", "Genres"))
 {
     <div class="form-group">
         @Html.LabelFor(m => m.Name)
         @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Birthdate)
-        @Html.TextBoxFor(m => m.Birthdate, new { @class = "form-control" })
-    </div>
     <button type="submit" class="btn btn-primary">Save</button>
 }
+
+
