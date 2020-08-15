@@ -15,19 +15,62 @@ namespace UI_MVC.Controllers
             return View(_artists);
         }
 
-        // GET: Artists/Create
-        public ActionResult Create()
+        // GET: Artists/Save
+        public ActionResult Save()
         {
             return View();
         }
 
-        // POST: Artists/Create
+        // POST: Artists/Save
         [HttpPost]
-        public ActionResult Create(ArtistDto artistDto)
+        public ActionResult Save(ArtistDto artistDto)
         {
             try
             {
-                ApiConsumer<ArtistDto>.CreateObject(PATH, artistDto);
+                if (artistDto.Id == 0)
+                {
+                    ApiConsumer<ArtistDto>.CreateObject(PATH, artistDto);
+                }
+                else
+                {
+                    ApiConsumer<ArtistDto>.UpdateObject(PATH, artistDto);
+                }
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+        // GET: Artists/Edit/5
+        public ActionResult Edit(int id)
+        {
+            var artist = ApiConsumer<ArtistDto>.GetObject(PATH, id);
+
+            if (artist == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View("Save", artist);
+        }
+
+        // GET: Artists/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View(ApiConsumer<ArtistDto>.GetObject(PATH, id));
+        }
+
+        // DELETE: Artist/Delete/5
+        [HttpPost]
+        public ActionResult Delete(ArtistDto artistDto)
+        {
+            try
+            {
+                ApiConsumer<ArtistDto>.DeleteObject(PATH, artistDto.Id);
                 return RedirectToAction("Index");
             }
             catch

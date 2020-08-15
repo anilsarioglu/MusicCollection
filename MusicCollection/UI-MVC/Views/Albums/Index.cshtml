@@ -6,7 +6,7 @@
 }
 
 <h2>Albums</h2>
-@if (Model == null)
+@if (Model == null || !Model.Any())
 {
     <p>There are no albums yet.</p>
 }
@@ -16,8 +16,7 @@ else
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
-            <th>Artist ID</th>
-            <th>Album</th>
+            <th>Name</th>
             <th>Release Date</th>
         </tr>
         </thead>
@@ -25,9 +24,12 @@ else
         @foreach (var albumDto in Model)
         {
             <tr>
-                <td>@albumDto.ArtistId</td>
                 <td>@albumDto.Name</td>
-                <td>@albumDto.ReleaseDate</td>
+                <td>@albumDto.ReleaseDate.ToString("dd/MM/yyyy")</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Albums", new { id = albumDto.Id }, null) |
+                    @Html.ActionLink("Delete", "Delete", "Albums", new { id = albumDto.Id }, null)
+                </td>
             </tr>
         }
         </tbody>

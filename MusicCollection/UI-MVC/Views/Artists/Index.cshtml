@@ -16,8 +16,9 @@ else
     <table class="table table-bordered table-hover">
         <thead>
         <tr>
-            <th>Artist</th>
+            <th>Name</th>
             <th>Birthdate</th>
+            <th>Albums</th>
         </tr>
     </thead>
     <tbody>
@@ -25,7 +26,12 @@ else
         {
             <tr>
                 <td>@artistDto.Name</td>
-                <td>@artistDto.Birthdate</td>
+                <td>@artistDto.Birthdate.ToString("dd/MM/yyyy")</td>
+                <td>@Html.ActionLink("Show Albums", "Index", "Albums", new { id = artistDto.Id }, new { @class = "btn btn-primary btn-sm" })</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Artists", new { id = artistDto.Id }, null) |
+                    @Html.ActionLink("Delete", "Delete", "Artists", new { id = artistDto.Id }, null)
+                </td>
             </tr>
         }
     </tbody>

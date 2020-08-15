@@ -28,7 +28,7 @@ namespace UI_MVC
             }
         }
 
-        internal static T GetObject(string path, string id)
+        internal static T GetObject(string path, int id)
         {
             T objects = null;
             using (var client = new HttpClient())
@@ -60,7 +60,7 @@ namespace UI_MVC
             }
         }
 
-        internal static void UpdateObject(string path, string id, T t)
+        internal static void UpdateObject(string path, T t)
         {
             using (var client = new HttpClient())
             {
@@ -71,7 +71,7 @@ namespace UI_MVC
             }
         }
 
-        internal static void DeleteObject(string path, string id, T t)
+        internal static void DeleteObject(string path, int id)
         {
             using (var client = new HttpClient())
             {
