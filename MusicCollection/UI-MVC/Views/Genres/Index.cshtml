@@ -1,31 +1,35 @@
-﻿
+﻿@model IEnumerable<Shared.GenreDto>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Genres</h2>
-@if (Model == null)
+@if (Model == null || !Model.Any())
 {
-    <p>We don't have any genres yet.</p>
+    <p>There are no genres yet.</p>
 }
-
 else
 {
     <table class="table table-bordered table-hover">
-        <thead>
-        <tr>
-            <th>Name</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var genreDto in Model)
+    <thead>
+    <tr>
+    <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+     @foreach (var genreDto in Model)
         {
-            <tr>
-                <td>@genreDto.Name</td>
-            </tr>
+        <tr>
+        <td>@genreDto.Name</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Genres", new { id = genreDto.Id }, null) |
+                @Html.ActionLink("Delete", "Delete", "Genres", new { id = genreDto.Id }, null)
+            </td>
+         </tr>
         }
-        </tbody>
+    </tbody>
     </table>
 }
 

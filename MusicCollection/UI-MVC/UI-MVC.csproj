@@ -371,13 +371,14 @@
     <Content Include="Views\Albums\Index.cshtml" />
     <Content Include="Views\Albums\Save.cshtml" />
     <Content Include="Views\Genres\Index.cshtml" />
-    <Content Include="Views\Genres\Create.cshtml" />
+    <Content Include="Views\Genres\Save.cshtml" />
     <Content Include="Views\Playlists\Index.cshtml" />
     <Content Include="Views\Playlists\Create.cshtml" />
     <Content Include="Views\Tracks\Index.cshtml" />
     <Content Include="Views\Tracks\Create.cshtml" />
     <Content Include="Views\Artists\Delete.cshtml" />
     <Content Include="Views\Albums\Delete.cshtml" />
+    <Content Include="Views\Genres\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

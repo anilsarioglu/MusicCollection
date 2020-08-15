@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using Shared;
 
 namespace UI_MVC.Controllers
@@ -6,36 +7,75 @@ namespace UI_MVC.Controllers
     public class GenresController : Controller
     {
         private const string PATH = "genres";
-        //private IEnumerable<GenreDto> _genres = ApiConsumer<GenreDto>.GetApi(PATH);
+        private readonly IEnumerable<GenreDto> _genres = ApiConsumer<GenreDto>.GetApi(PATH);
 
         // GET: Genres
         public ActionResult Index()
         {
-            return View();
+            return View(_genres);
         }
 
-        // GET: Genres/Create
-        public ActionResult Create()
+        // GET: Genres/Save
+        public ActionResult Save()
         {
             return View();
         }
 
-        // POST: Genres/Create
+        // POST: Genres/Save
         [HttpPost]
-        public ActionResult Create(GenreDto genreDto)
+        public ActionResult Save(GenreDto genreDto)
         {
-            ApiConsumer<GenreDto>.CreateObject(PATH, genreDto);
-            return RedirectToAction("Index");
+            try
+            {
+                if (genreDto.Id == 0)
+                {
+                    ApiConsumer<GenreDto>.CreateObject(PATH, genreDto);
+                }
+                else
+                {
+                    ApiConsumer<GenreDto>.UpdateObject(PATH, genreDto);
+                }
 
-            //try
-            //{
-            //    ApiConsumer<GenreDto>.CreateObject(PATH, genreDto);
-            //    return RedirectToAction("Index");
-            //}
-            //catch
-            //{
-            //    return View();
-            //}
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Genres/Edit/5
+        public ActionResult Edit(int id)
+        {
+            var genre = ApiConsumer<GenreDto>.GetObject(PATH, id);
+
+            if (genre == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View("Save", genre);
+        }
+
+        // GET: Genres/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View(ApiConsumer<GenreDto>.GetObject(PATH, id));
+        }
+
+        // DELETE: Genres/Delete/5
+        [HttpPost]
+        public ActionResult Delete(GenreDto genreDto)
+        {
+            try
+            {
+                ApiConsumer<GenreDto>.DeleteObject(PATH, genreDto.Id);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }
