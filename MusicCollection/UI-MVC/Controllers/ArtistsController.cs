@@ -16,9 +16,9 @@ namespace UI_MVC.Controllers
         }
 
         // GET: Artists/Save
-        public ActionResult Save()
+        public ActionResult New()
         {
-            return View();
+            return View("ArtistForm");
         }
 
         // POST: Artists/Save
@@ -40,7 +40,7 @@ namespace UI_MVC.Controllers
             }
             catch
             {
-                return View();
+                return View("ArtistForm");
             }
         }
 
@@ -55,7 +55,7 @@ namespace UI_MVC.Controllers
                 return HttpNotFound();
             }
 
-            return View("Save", artist);
+            return View("ArtistForm", artist);
         }
 
         // GET: Artists/Delete/5

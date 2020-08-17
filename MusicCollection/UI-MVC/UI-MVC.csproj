@@ -365,7 +365,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Artists\Save.cshtml" />
+    <Content Include="Views\Artists\ArtistForm.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Artists\Index.cshtml" />
     <Content Include="Views\Albums\Index.cshtml" />

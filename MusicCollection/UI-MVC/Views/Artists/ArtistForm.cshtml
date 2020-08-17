@@ -9,8 +9,6 @@
 
 @using (Html.BeginForm("Save", "Artists"))
 {
-    @Html.HiddenFor(m => m.Id)
-
     <div class="form-group">
         @Html.LabelFor(m => m.Name)
         @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
@@ -19,5 +17,6 @@
         @Html.LabelFor(m => m.Birthdate)
         @Html.TextBoxFor(m => m.Birthdate, "{0: dd/MM/yyyy}", new { @class = "form-control" })
     </div>
+    @Html.HiddenFor(m => m.Id)
     <button type="submit" class="btn btn-primary">Save</button>
 }
