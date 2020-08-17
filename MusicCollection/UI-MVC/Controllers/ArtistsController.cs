@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Shared;
+using UI_MVC.Validators;
 
 namespace UI_MVC.Controllers
 {
@@ -9,13 +10,15 @@ namespace UI_MVC.Controllers
         private const string PATH = "artists";
         private readonly IEnumerable<ArtistDto> _artists = ApiConsumer<ArtistDto>.GetApi(PATH);
 
+
+
         // GET: Artists
         public ActionResult Index()
         {
             return View(_artists);
         }
 
-        // GET: Artists/Save
+        // GET: Artists/New
         public ActionResult New()
         {
             return View("ArtistForm");
@@ -27,6 +30,18 @@ namespace UI_MVC.Controllers
         {
             try
             {
+                var artistValidator = new ArtistValidator();
+                var result = artistValidator.Validate(artistDto);
+
+                if (!result.IsValid)
+                {
+                    foreach (var failure in result.Errors)
+                    {
+                        ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                    }
+                    return View("ArtistForm", artistDto);
+                }
+
                 if (artistDto.Id == 0)
                 {
                     ApiConsumer<ArtistDto>.CreateObject(PATH, artistDto);

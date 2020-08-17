@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using Shared;
+using UI_MVC.Validators;
 
 namespace UI_MVC.Controllers
 {
@@ -23,10 +24,10 @@ namespace UI_MVC.Controllers
             return View(albumArtists);
         }
 
-        // GET: Albums/Save
-        public ActionResult Save()
+        // GET: Albums/New
+        public ActionResult New()
         {
-            return View();
+            return View("AlbumForm");
         }
 
         // POST: Albums/Save
@@ -35,6 +36,18 @@ namespace UI_MVC.Controllers
         {
             try
             {
+                var albumValidator = new AlbumValidator();
+                var result = albumValidator.Validate(albumDto);
+
+                if (!result.IsValid)
+                {
+                    foreach (var failure in result.Errors)
+                    {
+                        ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                    }
+                    return View("AlbumForm", albumDto);
+                }
+
                 if (albumDto.Id == 0)
                 {
                     ApiConsumer<AlbumDto>.CreateObject(PATH, albumDto);
@@ -48,7 +61,7 @@ namespace UI_MVC.Controllers
             }
             catch
             {
-                return View();
+                return View("AlbumForm");
             }
         }
 
@@ -62,7 +75,7 @@ namespace UI_MVC.Controllers
                 return HttpNotFound();
             }
 
-            return View("Save", album);
+            return View("AlbumForm", album);
         }
 
         // GET: Albums/Delete/5

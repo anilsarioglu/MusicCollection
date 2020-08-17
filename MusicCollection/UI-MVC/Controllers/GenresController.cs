@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Shared;
+using UI_MVC.Validators;
 
 namespace UI_MVC.Controllers
 {
@@ -15,10 +16,10 @@ namespace UI_MVC.Controllers
             return View(_genres);
         }
 
-        // GET: Genres/Save
-        public ActionResult Save()
+        // GET: Genres/New
+        public ActionResult New()
         {
-            return View();
+            return View("GenreForm");
         }
 
         // POST: Genres/Save
@@ -27,6 +28,18 @@ namespace UI_MVC.Controllers
         {
             try
             {
+                var genreValidator = new GenreValidator();
+                var result = genreValidator.Validate(genreDto);
+
+                if (!result.IsValid)
+                {
+                    foreach (var failure in result.Errors)
+                    {
+                        ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                    }
+                    return View("GenreForm", genreDto);
+                }
+
                 if (genreDto.Id == 0)
                 {
                     ApiConsumer<GenreDto>.CreateObject(PATH, genreDto);
@@ -40,7 +53,7 @@ namespace UI_MVC.Controllers
             }
             catch
             {
-                return View();
+                return View("GenreForm");
             }
         }
 
@@ -54,7 +67,7 @@ namespace UI_MVC.Controllers
                 return HttpNotFound();
             }
 
-            return View("Save", genre);
+            return View("GenreForm", genre);
         }
 
         // GET: Genres/Delete/5
