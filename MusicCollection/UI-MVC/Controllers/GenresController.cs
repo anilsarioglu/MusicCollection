@@ -24,6 +24,7 @@ namespace UI_MVC.Controllers
 
         // POST: Genres/Save
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(GenreDto genreDto)
         {
             try

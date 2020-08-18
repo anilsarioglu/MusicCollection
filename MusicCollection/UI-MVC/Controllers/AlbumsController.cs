@@ -32,6 +32,7 @@ namespace UI_MVC.Controllers
 
         // POST: Albums/Save
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(AlbumDto albumDto)
         {
             try

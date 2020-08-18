@@ -26,6 +26,7 @@ namespace UI_MVC.Controllers
 
         // POST: Artists/Save
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(ArtistDto artistDto)
         {
             try
