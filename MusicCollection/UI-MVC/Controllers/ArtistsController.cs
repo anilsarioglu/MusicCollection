@@ -65,6 +65,7 @@ namespace UI_MVC.Controllers
         // GET: Artists/New
         public ActionResult New()
         {
+            ViewBag.NewOrEdit = "New";
             return View("ArtistForm");
         }
 
@@ -115,6 +116,7 @@ namespace UI_MVC.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.NewOrEdit = "Edit";
             return View("ArtistForm", artist);
         }
 

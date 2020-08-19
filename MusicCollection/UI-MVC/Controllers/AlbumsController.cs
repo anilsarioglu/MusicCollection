@@ -16,10 +16,14 @@ namespace UI_MVC.Controllers
         {
             if (!id.HasValue)
             {
+                ViewBag.ArtistName = "";
                 return View(_albums);
             }
 
             var albumArtists = _albums.Where(album => album.ArtistId == id).ToList();
+
+            var artistName = ApiConsumer<ArtistDto>.GetObject("artists", (int)id).Name;
+            ViewBag.ArtistName = "of " + artistName;
 
             return View(albumArtists);
         }
@@ -27,6 +31,7 @@ namespace UI_MVC.Controllers
         // GET: Albums/New
         public ActionResult New()
         {
+            ViewBag.NewOrEdit = "New";
             return View("AlbumForm");
         }
 
@@ -76,6 +81,7 @@ namespace UI_MVC.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.NewOrEdit = "Edit";
             return View("AlbumForm", album);
         }
 

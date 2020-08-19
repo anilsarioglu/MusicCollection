@@ -5,10 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>New Album</h2>
+<h2>@ViewBag.NewOrEdit Album</h2>
 
 @using (Html.BeginForm("Save", "Albums"))
 {
+    @Html.ValidationSummary(true, "Please fix the following errors.")
     <div class="form-group">
         @Html.LabelFor(m => m.ArtistId)
         @Html.TextBoxFor(m => m.ArtistId, new { @class = "form-control" })

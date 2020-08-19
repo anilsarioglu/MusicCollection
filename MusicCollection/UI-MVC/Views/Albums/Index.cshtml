@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Albums</h2>
+<h2>Albums @ViewBag.ArtistName</h2>
 @if (Model == null || !Model.Any())
 {
     <p>There are no albums yet.</p>

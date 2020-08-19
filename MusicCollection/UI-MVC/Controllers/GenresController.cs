@@ -56,6 +56,7 @@ namespace UI_MVC.Controllers
         // GET: Genres/New
         public ActionResult New()
         {
+            ViewBag.NewOrEdit = "New";
             return View("GenreForm");
         }
 
@@ -105,6 +106,7 @@ namespace UI_MVC.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.NewOrEdit = "Edit";
             return View("GenreForm", genre);
         }
 
