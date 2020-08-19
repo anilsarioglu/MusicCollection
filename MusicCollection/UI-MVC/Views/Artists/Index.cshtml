@@ -1,9 +1,12 @@
-﻿@model IEnumerable<Shared.ArtistDto>
+﻿@model IPagedList<Shared.ArtistDto>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@using PagedList.Mvc;
+@using PagedList;
 
 <h2>Artists</h2>
 @if (Model == null)
@@ -13,27 +16,55 @@
 
 else
 {
+    using (Html.BeginForm("Index", "Artists", FormMethod.Get))
+    {
+        <div style="float: right">
+            @Html.TextBox("searchString")
+            <button title="Search" input="submit" style="background-color: transparent; border: none">
+                <img src="../../Content/Images/magnifying-glass.svg" width="20" height="20" alt="Search" />
+            </button>
+        </div>
+    }
+
     <table class="table table-bordered table-hover">
         <thead>
-        <tr>
-            <th>Name</th>
-            <th>Birthdate</th>
-            <th>Albums</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var artistDto in Model)
-        {
             <tr>
-                <td>@artistDto.Name</td>
-                <td>@artistDto.Birthdate.ToString("dd/MM/yyyy")</td>
-                <td>@Html.ActionLink("Show Albums", "Index", "Albums", new { id = artistDto.Id }, new { @class = "btn btn-primary btn-sm" })</td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", "Artists", new { id = artistDto.Id }, null) |
-                    @Html.ActionLink("Delete", "Delete", "Artists", new { id = artistDto.Id }, null)
-                </td>
+                <th>
+                    @Html.ActionLink("Name", "Index", new
+                         {
+                             sortOrder = ViewBag.NameSortParm,
+                             currentFilter = ViewBag.CurrentFilter
+                         })
+                </th>
+                <th>
+                    @Html.ActionLink("Date of Birth", "Index", new
+                         {
+                             sortOrder = ViewBag.BirthdateSortParm,
+                             currentFilter = ViewBag.CurrentFilter
+                         })
+                </th>
+                <th>Albums</th>
             </tr>
-        }
-    </tbody>
+        </thead>
+        <tbody>
+            @foreach (var artistDto in Model)
+            {
+                <tr>
+                    <td>@artistDto.Name</td>
+                    <td>@artistDto.Birthdate.ToString("dd/MM/yyyy")</td>
+                    <td>@Html.ActionLink("Show Albums", "Index", "Albums", new { id = artistDto.Id }, new { @class = "btn btn-primary btn-sm" })</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Artists", new { id = artistDto.Id }, null) |
+                        @Html.ActionLink("Delete", "Delete", "Artists", new { id = artistDto.Id }, null)
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
 }
+
+
+@Html.PagedListPager(Model, page => Url.Action("Index", "Artists", new
+{
+    page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter
+}))

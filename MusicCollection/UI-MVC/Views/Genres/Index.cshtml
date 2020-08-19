@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using System.Data.SqlClient
 @using PagedList.Mvc;
 @using PagedList;
 
@@ -31,7 +30,7 @@ else
     <tr>
     <th>@Html.ActionLink("Name", "Index", new
         {
-            sortOrder = ViewBag.GenreNameSortParm,
+            sortOrder = ViewBag.NameSortParm,
             currentFilter = ViewBag.CurrentFilter
         })</th>
     </tr>

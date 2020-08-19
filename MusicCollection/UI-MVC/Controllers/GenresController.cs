@@ -18,7 +18,7 @@ namespace UI_MVC.Controllers
             var genres = _genres;
 
             ViewBag.CurrentSort = sortOrder;
-            ViewBag.GenreNameSortParm = string.IsNullOrEmpty(sortOrder) ? "GenreName_desc" : "";
+            ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
 
             if (searchString != null)
             {
@@ -39,7 +39,7 @@ namespace UI_MVC.Controllers
 
             switch (sortOrder)
             {
-                case "GenreName_desc":
+                case "Name_desc":
                     genres = genres.OrderByDescending(g => g.Name);
                     break;
                 default:

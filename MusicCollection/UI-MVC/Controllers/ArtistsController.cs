@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Web.Mvc;
+using PagedList;
 using Shared;
 using UI_MVC.Validators;
 
@@ -10,12 +13,53 @@ namespace UI_MVC.Controllers
         private const string PATH = "artists";
         private readonly IEnumerable<ArtistDto> _artists = ApiConsumer<ArtistDto>.GetApi(PATH);
 
-
-
         // GET: Artists
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(_artists);
+            var artists = _artists;
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
+            ViewBag.BirthdateSortParm = sortOrder == "Birthdate" ? "Birthdate_desc" : "Birthdate";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                artists = artists.Where(
+                    a => a.Name.ToLower().Contains(searchString) || a.Name.Contains(searchString)
+                         || a.Birthdate.ToString(CultureInfo.InvariantCulture).Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "Name_desc":
+                    artists = artists.OrderByDescending(a => a.Name);
+                    break;
+                case "Birthdate":
+                    artists = artists.OrderBy(a => a.Birthdate);
+                    break;
+                case "Birthdate_desc":
+                    artists = artists.OrderByDescending(a => a.Birthdate);
+                    break;
+                default:
+                    artists = artists.OrderBy(a => a.Name);
+                    break;
+            }
+
+            var pageNumber = page ?? 1;
+            const int pageSize = 5;
+
+            return View(artists.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Artists/New
