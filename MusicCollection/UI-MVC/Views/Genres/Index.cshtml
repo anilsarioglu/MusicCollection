@@ -1,9 +1,13 @@
-﻿@model IEnumerable<Shared.GenreDto>
+﻿@model IPagedList<Shared.GenreDto>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@using System.Data.SqlClient
+@using PagedList.Mvc;
+@using PagedList;
 
 <h2>Genres</h2>
 @if (Model == null || !Model.Any())
@@ -12,10 +16,24 @@
 }
 else
 {
+    using (Html.BeginForm("Index", "Genres", FormMethod.Get))
+    {
+        <div style="float: right">
+            @Html.TextBox("searchString")
+            <button title="Search" input="submit" style="background-color: transparent; border: none">
+                <img src="../../Content/Images/magnifying-glass.svg" width="20" height="20" alt="Search"/>
+            </button>
+        </div>
+    }
+
     <table class="table table-bordered table-hover">
     <thead>
     <tr>
-    <th>Name</th>
+    <th>@Html.ActionLink("Name", "Index", new
+        {
+            sortOrder = ViewBag.GenreNameSortParm,
+            currentFilter = ViewBag.CurrentFilter
+        })</th>
     </tr>
     </thead>
     <tbody>
@@ -32,5 +50,10 @@ else
     </tbody>
     </table>
 }
+
+@Html.PagedListPager(Model, page => Url.Action("Index", "Genres", new
+{
+    page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter
+}))
 
 

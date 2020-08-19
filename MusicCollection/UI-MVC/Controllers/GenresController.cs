@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using PagedList;
 using Shared;
 using UI_MVC.Validators;
 
@@ -11,9 +13,44 @@ namespace UI_MVC.Controllers
         private readonly IEnumerable<GenreDto> _genres = ApiConsumer<GenreDto>.GetApi(PATH);
 
         // GET: Genres
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(_genres);
+            var genres = _genres;
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.GenreNameSortParm = string.IsNullOrEmpty(sortOrder) ? "GenreName_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                genres = genres.Where(
+                    g => g.Name.ToLower().Contains(searchString) || g.Name.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "GenreName_desc":
+                    genres = genres.OrderByDescending(g => g.Name);
+                    break;
+                default:
+                    genres = genres.OrderBy(g => g.Name);
+                    break;
+            }
+
+            var pageNumber = page ?? 1;
+            const int pageSize = 5;
+
+            return View(genres.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Genres/New

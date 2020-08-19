@@ -1,4 +1,3 @@
 - Dependency Injection
-- Date fields in UI
 - Change URL route when user clicks on the "Show Albums" button on the Artists view
 - Back buttons
