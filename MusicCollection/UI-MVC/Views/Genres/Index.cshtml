@@ -20,36 +20,39 @@ else
         <div style="float: right">
             @Html.TextBox("searchString")
             <button title="Search" input="submit" style="background-color: transparent; border: none">
-                <img src="../../Content/Images/magnifying-glass.svg" width="20" height="20" alt="Search"/>
+                <img src="../../Content/Images/magnifying-glass.svg" width="20" height="20" alt="Search" />
             </button>
         </div>
     }
 
     <table class="table table-bordered table-hover">
-    <thead>
-    <tr>
-    <th>@Html.ActionLink("Name", "Index", new
-        {
-            sortOrder = ViewBag.NameSortParm,
-            currentFilter = ViewBag.CurrentFilter
-        })</th>
-    </tr>
+        <thead>
+            <tr>
+                <th>
+                    @Html.ActionLink("Name", "Index", new
+                {
+                    sortOrder = ViewBag.NameSortParm,
+                    currentFilter = ViewBag.CurrentFilter
+                })
+            </th>
+        </tr>
     </thead>
     <tbody>
-     @foreach (var genreDto in Model)
+        @foreach (var genreDto in Model)
         {
-        <tr>
-        <td>@genreDto.Name</td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", "Genres", new { id = genreDto.Id }, null) |
-                @Html.ActionLink("Delete", "Delete", "Genres", new { id = genreDto.Id }, null)
-            </td>
-         </tr>
+            <tr>
+                <td>@genreDto.Name</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Genres", new { id = genreDto.Id }, null) |
+                    @Html.ActionLink("Delete", "Delete", "Genres", new { id = genreDto.Id }, null)
+                </td>
+            </tr>
         }
     </tbody>
-    </table>
+</table>
 }
 
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 @Html.PagedListPager(Model, page => Url.Action("Index", "Genres", new
 {
     page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter

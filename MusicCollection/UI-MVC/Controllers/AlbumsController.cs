@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
+using PagedList;
 using Shared;
 using UI_MVC.Validators;
 
@@ -12,20 +14,55 @@ namespace UI_MVC.Controllers
         private readonly IEnumerable<AlbumDto> _albums = ApiConsumer<AlbumDto>.GetApi(PATH);
 
         // GET: Albums
-        public ActionResult Index(int? id)
+        public ActionResult Index(string searchString, string currentFilter, int? page, int? artistId)
         {
-            if (!id.HasValue)
+            //if (!artistId.HasValue)
+            //{
+            //    ViewBag.ArtistName = "";
+            //    return View(_albums);
+            //}
+
+            //var albumArtists = _albums.Where(album => album.ArtistId == artistId).ToList();
+
+            //var artistName = ApiConsumer<ArtistDto>.GetObject("artists", (int)artistId).Name;
+            //ViewBag.ArtistName = "of " + artistName;
+
+            //return View(albumArtists);
+
+            var albums = _albums;
+
+            if (searchString != null)
             {
-                ViewBag.ArtistName = "";
-                return View(_albums);
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
             }
 
-            var albumArtists = _albums.Where(album => album.ArtistId == id).ToList();
+            ViewBag.CurrentFilter = searchString;
 
-            var artistName = ApiConsumer<ArtistDto>.GetObject("artists", (int)id).Name;
-            ViewBag.ArtistName = "of " + artistName;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                albums = albums.Where(
+                    a => a.Name.ToLower().Contains(searchString) || a.Name.Contains(searchString)
+                                                                 || a.ReleaseDate.ToString(CultureInfo.InvariantCulture).Contains(searchString));
+            }
 
-            return View(albumArtists);
+            var pageNumber = page ?? 1;
+            const int pageSize = 6;
+
+            if (artistId.HasValue)
+            {
+                albums = albums.Where(album => album.ArtistId == artistId).ToList();
+
+                var artistName = ApiConsumer<ArtistDto>.GetObject("artists", (int)artistId).Name;
+                ViewBag.ArtistName = "of " + artistName;
+
+                return View(albums.ToPagedList(pageNumber, pageSize));
+            }
+
+            return View(albums.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Albums/New

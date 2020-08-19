@@ -52,7 +52,7 @@ else
                 <tr>
                     <td>@artistDto.Name</td>
                     <td>@artistDto.Birthdate.ToString("dd/MM/yyyy")</td>
-                    <td>@Html.ActionLink("Show Albums", "Index", "Albums", new { id = artistDto.Id }, new { @class = "btn btn-primary btn-sm" })</td>
+                    <td>@Html.ActionLink("Show Albums", "Index", "Albums", new { artistId = artistDto.Id }, new { @class = "btn btn-primary btn-sm" })</td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", "Artists", new { id = artistDto.Id }, null) |
                         @Html.ActionLink("Delete", "Delete", "Artists", new { id = artistDto.Id }, null)
@@ -63,7 +63,7 @@ else
     </table>
 }
 
-
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 @Html.PagedListPager(Model, page => Url.Action("Index", "Artists", new
 {
     page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter

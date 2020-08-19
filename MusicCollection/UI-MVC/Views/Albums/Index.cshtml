@@ -1,9 +1,13 @@
-﻿@model IEnumerable<Shared.AlbumDto>
+﻿@model IPagedList<Shared.AlbumDto>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var count = 0;
 }
+
+@using PagedList.Mvc;
+@using PagedList;
 
 <h2>Albums @ViewBag.ArtistName</h2>
 @if (Model == null || !Model.Any())
@@ -12,27 +16,46 @@
 }
 else
 {
-    <table class="table table-bordered table-hover">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Release Date</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var albumDto in Model)
-        {
-            <tr>
-                <td>@albumDto.Name</td>
-                <td>@albumDto.ReleaseDate.ToString("dd/MM/yyyy")</td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", "Albums", new { id = albumDto.Id }, null) |
-                    @Html.ActionLink("Delete", "Delete", "Albums", new { id = albumDto.Id }, null)
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
+    using (Html.BeginForm("Index", "Albums", FormMethod.Get))
+    {
+        <div style="float: right">
+            @Html.TextBox("searchString")
+            <button title="Search" input="submit" style="background-color: transparent; border: none">
+                <img src="../../Content/Images/magnifying-glass.svg" width="20" height="20" alt="Search" />
+            </button>
+        </div>
+    }
+
+    <div class="card-deck">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                var insertRow = count != 0 && count % 6 == 0;
+                if (insertRow)
+                {
+                @:</div>
+                @:<div class="row">
+                }
+
+                <div class="col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <img src="../../Content/Images/music.jpg" class="card-img-top" alt="Album Cover" width="350" height="200">
+                        <div class="card-body">
+                            @Html.ActionLink("Edit", "Edit", "Albums", new { id = item.Id }, null) |
+                            @Html.ActionLink("Delete", "Delete", "Albums", new { id = item.Id }, null)
+
+                            <h5 class="card-title" style="font-weight: bold">@item.Name</h5>
+                            <p class="card-text">@item.ReleaseDate.ToString("dd/MM/yyyy")</p>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+                count++;
+            }
+        </div>
+    </div>
 }
 
-
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
