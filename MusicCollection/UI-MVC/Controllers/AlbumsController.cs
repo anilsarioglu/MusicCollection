@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using PagedList;
 using Shared;
 using UI_MVC.Validators;
+using UI_MVC.ViewModels;
 
 namespace UI_MVC.Controllers
 {
@@ -12,23 +14,11 @@ namespace UI_MVC.Controllers
     {
         private const string PATH = "albums";
         private readonly IEnumerable<AlbumDto> _albums = ApiConsumer<AlbumDto>.GetApi(PATH);
+        private readonly IEnumerable<ArtistDto> _artists = ApiConsumer<ArtistDto>.GetApi("artists");
 
         // GET: Albums
         public ActionResult Index(string searchString, string currentFilter, int? page, int? artistId)
         {
-            //if (!artistId.HasValue)
-            //{
-            //    ViewBag.ArtistName = "";
-            //    return View(_albums);
-            //}
-
-            //var albumArtists = _albums.Where(album => album.ArtistId == artistId).ToList();
-
-            //var artistName = ApiConsumer<ArtistDto>.GetObject("artists", (int)artistId).Name;
-            //ViewBag.ArtistName = "of " + artistName;
-
-            //return View(albumArtists);
-
             var albums = _albums;
 
             if (searchString != null)
@@ -88,6 +78,7 @@ namespace UI_MVC.Controllers
                     {
                         ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
                     }
+
                     return View("AlbumForm", albumDto);
                 }
 

@@ -10,9 +10,15 @@
 @using (Html.BeginForm("Save", "Albums"))
 {
     @Html.ValidationSummary(true, "Please fix the following errors.")
+    @*<div class="form-group">
+            @Html.LabelFor(m => m.ArtistId)
+            @Html.TextBoxFor(m => m.ArtistId, new { @class = "form-control" })
+        </div>*@
+
     <div class="form-group">
         @Html.LabelFor(m => m.ArtistId)
-        @Html.TextBoxFor(m => m.ArtistId, new { @class = "form-control" })
+        @Html.DropDownListFor(m => m.ArtistId, new SelectList(Model.Artists, "Id", "Name"), "Select Artist", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ArtistId, null, new { @class = "text-danger" })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Name)
@@ -29,3 +35,7 @@
     <button type="submit" class="btn btn-primary">Save</button>
 }
 
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

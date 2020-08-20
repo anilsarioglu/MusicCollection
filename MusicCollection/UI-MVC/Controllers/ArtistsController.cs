@@ -105,7 +105,6 @@ namespace UI_MVC.Controllers
             }
         }
 
-
         // GET: Artists/Edit/5
         public ActionResult Edit(int id)
         {

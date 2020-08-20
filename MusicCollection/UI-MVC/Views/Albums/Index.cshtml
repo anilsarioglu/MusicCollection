@@ -28,7 +28,7 @@ else
 
     <div class="card-deck">
         <div class="row">
-            @foreach (var item in Model)
+            @foreach (var albumDto in Model)
             {
                 var insertRow = count != 0 && count % 6 == 0;
                 if (insertRow)
@@ -41,11 +41,11 @@ else
                     <div class="card" style="width: 18rem;">
                         <img src="../../Content/Images/music.jpg" class="card-img-top" alt="Album Cover" width="350" height="200">
                         <div class="card-body">
-                            @Html.ActionLink("Edit", "Edit", "Albums", new { id = item.Id }, null) |
-                            @Html.ActionLink("Delete", "Delete", "Albums", new { id = item.Id }, null)
+                            @Html.ActionLink("Edit", "Edit", "Albums", new { id = albumDto.Id }, null) |
+                            @Html.ActionLink("Delete", "Delete", "Albums", new { id = albumDto.Id }, null)
 
-                            <h5 class="card-title" style="font-weight: bold">@item.Name</h5>
-                            <p class="card-text">@item.ReleaseDate.ToString("dd/MM/yyyy")</p>
+                            <h5 class="card-title" style="font-weight: bold">@albumDto.Name</h5>
+                            <p class="card-text">@albumDto.ReleaseDate.ToString("dd/MM/yyyy")</p>
                         </div>
                     </div>
                     <br />

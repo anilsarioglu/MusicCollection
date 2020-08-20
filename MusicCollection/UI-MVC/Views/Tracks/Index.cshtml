@@ -1,25 +1,55 @@
-﻿@model IEnumerable<Shared.TrackDto>
+﻿@model IPagedList<Shared.TrackDto>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Tracks</h2>
+@using PagedList.Mvc;
+@using PagedList;
 
+<h2>Tracks</h2>
 @if (Model == null)
 {
-    <p>We don't have any tracks yet.</p>
+    <p>There are no tracks yet.</p>
 }
 
 else
 {
+    using (Html.BeginForm("Index", "Tracks", FormMethod.Get))
+    {
+        <div style="float: right">
+            @Html.TextBox("searchString")
+            <button title="Search" input="submit" style="background-color: transparent; border: none">
+                <img src="../../Content/Images/magnifying-glass.svg" width="20" height="20" alt="Search" />
+            </button>
+        </div>
+    }
+
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th>Title</th>
-                <th>Duration</th>
-                <th>Label</th>
+                <th>
+                    @Html.ActionLink("Title", "Index", new
+                    {
+                        sortOrder = ViewBag.TitleSortParm,
+                        currentFilter = ViewBag.CurrentFilter
+                    })
+                </th>
+                <th>
+                    @Html.ActionLink("Duration", "Index", new
+                    {
+                        sortOrder = ViewBag.DurationSortParm,
+                        currentFilter = ViewBag.CurrentFilter
+                    })
+                </th>
+                <th>
+                    @Html.ActionLink("Label", "Index", new
+                    {
+                        sortOrder = ViewBag.LabelSortParm,
+                        currentFilter = ViewBag.CurrentFilter
+                    })
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -29,9 +59,18 @@ else
                     <td>@trackDto.Title</td>
                     <td>@trackDto.Duration</td>
                     <td>@trackDto.Label</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Tracks", new { id = trackDto.Id }, null) |
+                        @Html.ActionLink("Delete", "Delete", "Tracks", new { id = trackDto.Id }, null)
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 }
 
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", "Artists", new
+{
+    page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter
+}))

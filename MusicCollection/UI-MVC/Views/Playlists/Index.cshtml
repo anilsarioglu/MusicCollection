@@ -1,33 +1,62 @@
-﻿@model IEnumerable<Shared.PlaylistDto>
+﻿@model IPagedList<Shared.PlaylistDto>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Playlists</h2>
+@using PagedList.Mvc;
+@using PagedList;
 
+<h2>Playlists</h2>
 @if (Model == null)
 {
-    <p>We don't have any playlists yet.</p>
+    <p>There are no playlists yet.</p>
 }
 
 else
 {
+    using (Html.BeginForm("Index", "Artists", FormMethod.Get))
+    {
+        <div style="float: right">
+            @Html.TextBox("searchString")
+            <button title="Search" input="submit" style="background-color: transparent; border: none">
+                <img src="../../Content/Images/magnifying-glass.svg" width="20" height="20" alt="Search" />
+            </button>
+        </div>
+    }
+
     <table class="table table-bordered table-hover">
         <thead>
-            <tr>
-                <th>Title</th>
-            </tr>
+        <tr>
+            <th>
+                @Html.ActionLink("Title", "Index", new
+                {
+                    sortOrder = ViewBag.TitleSortParm,
+                    currentFilter = ViewBag.CurrentFilter
+                })
+            </th>
+            <th>Tracks</th>
+        </tr>
         </thead>
         <tbody>
-            @foreach (var playlistDto in Model)
-            {
-                <tr>
-                    <td>@playlistDto.Title</td>
-                </tr>
-            }
+        @foreach (var playlistDto in Model)
+        {
+            <tr>
+                <td>@playlistDto.Title</td>
+                <td>@Html.ActionLink("Show Tracks", "Index", "Tracks", new { playlistId = playlistDto.Id }, new { @class = "btn btn-primary btn-sm" })</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Artists", new { id = playlistDto.Id }, null) |
+                    @Html.ActionLink("Delete", "Delete", "Artists", new { id = playlistDto.Id }, null)
+                </td>
+            </tr>
+        }
         </tbody>
     </table>
 }
 
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", "Artists", new
+{
+    page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter
+}))

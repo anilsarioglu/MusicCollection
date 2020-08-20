@@ -1,41 +1,152 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Web.Mvc;
+using PagedList;
 using Shared;
+using UI_MVC.Validators;
 
 namespace UI_MVC.Controllers
 {
     public class TracksController : Controller
     {
         private const string PATH = "tracks";
-        //private IEnumerable<TrackDto> _tracks = ApiConsumer<TrackDto>.GetApi(PATH);
+        private readonly IEnumerable<TrackDto> _tracks = ApiConsumer<TrackDto>.GetApi(PATH);
 
         // GET: Tracks
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page, int? playlistId)
         {
-            return View();
+            var tracks = _tracks;
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.TitleSortParm = string.IsNullOrEmpty(sortOrder) ? "Title_desc" : "";
+            ViewBag.DurationSortParm = sortOrder == "Duration" ? "Duration_desc" : "Duration";
+            ViewBag.LabelSortParm = sortOrder == "Label" ? "Label_desc" : "Label";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                tracks = tracks.Where(
+                    a => a.Title.ToLower().Contains(searchString) || a.Title.Contains(searchString) 
+                                                                  || a.Duration.ToString().Contains(searchString)
+                                                                  || a.Label.ToLower().Contains(searchString)
+                                                                  || a.Label.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "Title_desc":
+                    tracks = tracks.OrderByDescending(a => a.Title);
+                    break;
+                case "Duration":
+                    tracks = tracks.OrderBy(a => a.Duration);
+                    break;
+                case "Duration_desc":
+                    tracks = tracks.OrderByDescending(a => a.Duration);
+                    break;
+                case "Label":
+                    tracks = tracks.OrderBy(a => a.Label);
+                    break;
+                case "Label_desc":
+                    tracks = tracks.OrderByDescending(a => a.Label);
+                    break;
+                default:
+                    tracks = tracks.OrderBy(a => a.Title);
+                    break;
+            }
+
+            var pageNumber = page ?? 1;
+            const int pageSize = 5;
+
+            return View(tracks.ToPagedList(pageNumber, pageSize));
         }
 
-        // GET: Tracks/Create
-        public ActionResult Create()
+        // GET: Tracks/New
+        public ActionResult New()
         {
-            return View();
+            ViewBag.NewOrEdit = "New";
+            return View("TrackForm");
         }
 
-        // POST: Tracks/Create
+        // POST: Tracks/Save
         [HttpPost]
-        public ActionResult Create(TrackDto trackDto)
+        [ValidateAntiForgeryToken]
+        public ActionResult Save(TrackDto trackDto)
         {
-            ApiConsumer<TrackDto>.CreateObject(PATH, trackDto);
-            return RedirectToAction("Index");
+            try
+            {
+                var trackValidator = new TrackValidator();
+                var result = trackValidator.Validate(trackDto);
 
-            //try
-            //{
-            //    ApiConsumer<TrackDto>.CreateObject(PATH, trackDto);
-            //    return RedirectToAction("Index");
-            //}
-            //catch
-            //{
-            //    return View();
-            //}
+                if (!result.IsValid)
+                {
+                    foreach (var failure in result.Errors)
+                    {
+                        ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                    }
+                    return View("TrackForm", trackDto);
+                }
+
+                if (trackDto.Id == 0)
+                {
+                    ApiConsumer<TrackDto>.CreateObject(PATH, trackDto);
+                }
+                else
+                {
+                    ApiConsumer<TrackDto>.UpdateObject(PATH, trackDto);
+                }
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View("TrackForm");
+            }
+        }
+
+        // GET: Tracks/Edit/5
+        public ActionResult Edit(int id)
+        {
+            var track = ApiConsumer<TrackDto>.GetObject(PATH, id);
+
+            if (track == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.NewOrEdit = "Edit";
+            return View("TrackForm", track);
+        }
+
+        // GET: Tracks/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View(ApiConsumer<TrackDto>.GetObject(PATH, id));
+        }
+
+        // DELETE: Tracks/Delete/5
+        [HttpPost]
+        public ActionResult Delete(TrackDto trackDto)
+        {
+            try
+            {
+                ApiConsumer<ArtistDto>.DeleteObject(PATH, trackDto.Id);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }

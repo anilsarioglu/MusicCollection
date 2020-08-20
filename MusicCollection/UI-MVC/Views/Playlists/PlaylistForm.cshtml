@@ -1,19 +1,19 @@
-﻿@model Shared.GenreDto
+﻿@model Shared.PlaylistDto
 
 @{
-    ViewBag.Title = "New";
+    ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.NewOrEdit Genre</h2>
+<h2>@ViewBag.NewOrEdit Playlist</h2>
 
-@using (Html.BeginForm("Save", "Genres"))
+@using (Html.BeginForm("Save", "Playlists"))
 {
     @Html.ValidationSummary(true, "Please fix the following errors.")
     <div class="form-group">
-        @Html.LabelFor(m => m.Name)
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Name, null, new { @class = "text-danger" })
+        @Html.LabelFor(m => m.Title)
+        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Title, null, new { @class = "text-danger" })
     </div>
     @Html.HiddenFor(m => m.Id)
     @Html.AntiForgeryToken()
