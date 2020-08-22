@@ -14,8 +14,6 @@ namespace UI_MVC.Controllers
         private const string PATH = "tracks";
         private readonly IEnumerable<TrackDto> _tracks = ApiConsumer<TrackDto>.GetApi(PATH);
         private readonly IEnumerable<GenreDto> _genres = ApiConsumer<GenreDto>.GetApi("genres");
-        private List<TrackGenreViewModel> trackGenreViewModels = new List<TrackGenreViewModel>();
-        
 
         // GET: Tracks
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
@@ -77,18 +75,7 @@ namespace UI_MVC.Controllers
             var pageNumber = page ?? 1;
             const int pageSize = 5;
 
-            
-            foreach (var track in tracks)
-            {
-                trackGenreViewModels.Add(new TrackGenreViewModel()
-                {
-                    Genres = _genres,
-                    Track = track,
-                    TrackGenre = new TrackGenreDto()
-                });
-            }
-
-            return View(trackGenreViewModels.ToPagedList(pageNumber, pageSize));
+            return View(tracks.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Tracks/New
