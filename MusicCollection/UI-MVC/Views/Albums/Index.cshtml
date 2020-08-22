@@ -16,14 +16,18 @@
 }
 else
 {
+    <p>
+        @Html.ActionLink("New Album", "New", "Albums", null, new { @class = "btn btn-primary btn-xs" })
+    </p>
+
     <div style="width: 100%; text-align: right; margin-bottom: 15px;">
-            @using (Html.BeginForm("Index", "Albums", FormMethod.Get))
-            {
-                @Html.TextBox("searchString")
-                <button title="Search" input="submit" style="background-color: transparent; border: none">
-                    <img src="../../Content/Images/magnifying-glass.svg" width="20" height="20" alt="Search" />
-                </button>
-            }
+        @using (Html.BeginForm("Index", "Albums", FormMethod.Get))
+        {
+            @Html.TextBox("searchString")
+            <button title="Search" input="submit" style="background-color: transparent; border: none">
+                <img src="../../Content/Images/magnifying-glass.svg" width="20" height="20" alt="Search" />
+            </button>
+        }
     </div>
 
     <div class="card-deck">

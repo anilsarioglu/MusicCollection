@@ -7,7 +7,6 @@
 
 @using PagedList.Mvc;
 @using PagedList;
-@using Shared
 
 <h2>Tracks</h2>
 @if (Model == null)
@@ -17,6 +16,10 @@
 
 else
 {
+    <p>
+        @Html.ActionLink("New Track", "New", "Tracks", null, new { @class = "btn btn-primary btn-xs" })
+    </p>
+
     using (Html.BeginForm("Index", "Tracks", FormMethod.Get))
     {
         <div style="float: right">

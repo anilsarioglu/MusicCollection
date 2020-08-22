@@ -15,6 +15,10 @@
 }
 else
 {
+    <p>
+        @Html.ActionLink("New Genre", "New", "Genres", null, new { @class = "btn btn-primary btn-xs" })
+    </p>
+
     using (Html.BeginForm("Index", "Genres", FormMethod.Get))
     {
         <div style="float: right">
@@ -34,22 +38,22 @@ else
                     sortOrder = ViewBag.NameSortParm,
                     currentFilter = ViewBag.CurrentFilter
                 })
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var genreDto in Model)
-        {
-            <tr>
-                <td>@genreDto.Name</td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", "Genres", new { id = genreDto.Id }, null) |
-                    @Html.ActionLink("Delete", "Delete", "Genres", new { id = genreDto.Id }, null)
-                </td>
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var genreDto in Model)
+            {
+                <tr>
+                    <td>@genreDto.Name</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Genres", new { id = genreDto.Id }, null) |
+                        @Html.ActionLink("Delete", "Delete", "Genres", new { id = genreDto.Id }, null)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount

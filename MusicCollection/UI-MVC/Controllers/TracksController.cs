@@ -160,6 +160,7 @@ namespace UI_MVC.Controllers
 
         // DELETE: Tracks/Delete/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(TrackDto trackDto)
         {
             try

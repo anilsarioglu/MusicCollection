@@ -123,6 +123,7 @@ namespace UI_MVC.Controllers
 
         // DELETE: Playlists/Delete/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(PlaylistDto playlistDto)
         {
             try

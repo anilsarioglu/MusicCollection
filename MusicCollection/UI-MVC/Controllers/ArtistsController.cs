@@ -127,6 +127,7 @@ namespace UI_MVC.Controllers
 
         // DELETE: Artist/Delete/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(ArtistDto artistDto)
         {
             try

@@ -26,6 +26,11 @@
     </div>
 
     <div>
-        <input type="submit" value="Delete" class="btn btn-primary" />
+        <input type="submit" value="Delete" class="btn btn-primary"/>
+        @Html.AntiForgeryToken()
+    </div>
+
+    <div style="margin-top: 10px">
+        @Html.ActionLink("Back to list", "Index")
     </div>
 }

@@ -135,6 +135,7 @@ namespace UI_MVC.Controllers
 
         // DELETE: Albums/Delete/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(AlbumDto albumDto)
         {
             try

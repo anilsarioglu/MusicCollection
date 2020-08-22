@@ -118,6 +118,7 @@ namespace UI_MVC.Controllers
 
         // DELETE: Genres/Delete/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(GenreDto genreDto)
         {
             try

@@ -16,6 +16,10 @@
 
 else
 {
+    <p>
+        @Html.ActionLink("New Playlist", "New", "Playlists", null, new { @class = "btn btn-primary btn-xs" })
+    </p>
+
     using (Html.BeginForm("Index", "Playlists", FormMethod.Get))
     {
         <div style="float: right">
