@@ -52,17 +52,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="utilities\autoMapper\Mapper.cs" />
-    <Compile Include="managers\TrackManager.cs" />
-    <Compile Include="managers\AlbumManager.cs" />
-    <Compile Include="managers\ArtistManager.cs" />
-    <Compile Include="managers\GenreManager.cs" />
-    <Compile Include="managers\interfaces\IManager.cs" />
-    <Compile Include="managers\PlaylistManager.cs" />
+    <Compile Include="Utilities\AutoMapper\Mapper.cs" />
+    <Compile Include="Managers\TrackManager.cs" />
+    <Compile Include="Managers\AlbumManager.cs" />
+    <Compile Include="Managers\ArtistManager.cs" />
+    <Compile Include="Managers\GenreManager.cs" />
+    <Compile Include="Managers\Interfaces\IManager.cs" />
+    <Compile Include="Managers\PlaylistManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="utilities\logger\ILogger.cs" />
-    <Compile Include="utilities\logger\MyLogger.cs" />
-    <Compile Include="utilities\Utils.cs" />
+    <Compile Include="Utilities\Logger\ILogger.cs" />
+    <Compile Include="Utilities\Logger\MyLogger.cs" />
+    <Compile Include="Utilities\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NLog.config">
@@ -77,6 +77,10 @@
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{67678E4C-ED4C-47EA-9925-0A8CEAFFF7BC}</Project>
       <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{92F91002-D9FC-4BFA-BEB1-79E58B5805E4}</Project>
+      <Name>Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Shared\Shared.csproj">
       <Project>{F3B2E942-797C-4A34-8629-55D67F5DBE64}</Project>

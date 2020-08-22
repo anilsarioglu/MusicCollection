@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DAL.entities
+namespace Domain
 {
     public class Album
     {

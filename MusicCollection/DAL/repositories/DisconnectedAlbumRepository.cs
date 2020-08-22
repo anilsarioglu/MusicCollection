@@ -1,55 +1,55 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using DAL.entities;
 using DAL.repositories.interfaces;
+using Domain;
 
-namespace DAL.repositories.disconnected
+namespace DAL.repositories
 {
-    public class DisconnectedGenreRepository : IDisconnectedRepository<Genre>
+    public class DisconnectedAlbumRepository : IDisconnectedRepository<Album>
     {
-        public Genre Create(Genre genre)
+        public Album Create(Album album)
         {
             using (var context = new DatabaseContext())
             {
-                var newGenre = context.Genres.Add(genre);
+                var newAlbum = context.Albums.Add(album);
                 context.SaveChanges();
-                return newGenre;
+                return newAlbum;
             }
         }
 
-        public IEnumerable<Genre> ReadAll()
+        public IEnumerable<Album> ReadAll()
         {
             using (var context = new DatabaseContext())
             {
-                return context.Genres.ToList();
+                return context.Albums.ToList();
             }
         }
 
-        public Genre ReadById(int id)
+        public Album ReadById(int id)
         {
             using (var context = new DatabaseContext())
             {
-                return context.Genres.Find(id);
+                return context.Albums.Find(id);
             }
         }
 
-        public Genre Update(Genre genre)
+        public Album Update(Album album)
         {
             using (var context = new DatabaseContext())
             {
-                context.Entry(genre).State = EntityState.Modified;
+                context.Entry(album).State = EntityState.Modified;
                 context.SaveChanges();
-                return genre;
+                return album;
             }
         }
 
-        public void DeleteById(int genreId)
+        public void DeleteById(int albumId)
         {
             using (var context = new DatabaseContext())
             {
-                var genre = context.Genres.Find(genreId);
-                context.Entry(genre).State = EntityState.Deleted;
+                var album = context.Albums.Find(albumId);
+                context.Entry(album).State = EntityState.Deleted;
                 context.SaveChanges();
             }
         }

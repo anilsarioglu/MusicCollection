@@ -1,4 +1,4 @@
-﻿namespace DAL.entities
+﻿namespace Domain
 {
     public class TrackGenre
     {

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using DAL.entities;
 using DAL.repositories.interfaces;
+using Domain;
 
-namespace DAL.repositories.disconnected
+namespace DAL.repositories
 {
     public class DisconnectedTrackRepository : IDisconnectedRepository<Track>
     {

@@ -1,4 +1,4 @@
-﻿using DAL.repositories.disconnected;
+﻿using DAL.repositories;
 
 namespace DAL.unitOfWork
 {

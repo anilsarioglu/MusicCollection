@@ -5,8 +5,8 @@ using BLL.managers.interfaces;
 using BLL.utilities;
 using BLL.utilities.autoMapper;
 using BLL.utilities.logger;
-using DAL.entities;
 using DAL.unitOfWork;
+using Domain;
 using Shared;
 
 namespace BLL.managers

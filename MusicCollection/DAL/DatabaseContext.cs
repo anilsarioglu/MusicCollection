@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 using DAL.dbConfigurations;
-using DAL.entities;
+using Domain;
 
 namespace DAL
 {

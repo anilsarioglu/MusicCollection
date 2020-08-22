@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DAL.entities
+namespace Domain
 {
     public class Artist
     {
