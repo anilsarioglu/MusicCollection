@@ -26,6 +26,18 @@ namespace DAL.repositories.disconnected
             }
         }
 
+        //public IEnumerable<Genre> ReadAllTrackGenres()
+        //{
+        //    using (var context = new DatabaseContext())
+        //    {
+        //        var genres = context.Genres.SqlQuery("SELECT g.Name " +
+        //                                             "FROM MusicCollection.Genre g " +
+        //                                             "INNER JOIN MusicCollection.TrackGenres tg ON g.Id = tg.GenreId " +
+        //                                             "INNER JOIN MusicCollection.Track t ON tg.TrackId = t.Id").ToList();
+        //        return genres;
+        //    }
+        //}
+
         public Track ReadById(int id)
         {
             using (var context = new DatabaseContext())

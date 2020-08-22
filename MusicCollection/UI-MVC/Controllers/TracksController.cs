@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using PagedList;
 using Shared;
 using UI_MVC.Validators;
+using UI_MVC.ViewModels;
 
 namespace UI_MVC.Controllers
 {
@@ -12,10 +13,18 @@ namespace UI_MVC.Controllers
     {
         private const string PATH = "tracks";
         private readonly IEnumerable<TrackDto> _tracks = ApiConsumer<TrackDto>.GetApi(PATH);
+        private readonly IEnumerable<GenreDto> _genres = ApiConsumer<GenreDto>.GetApi("genres");
+        private List<TrackGenreViewModel> trackGenreViewModels = new List<TrackGenreViewModel>();
+        
 
         // GET: Tracks
-        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page, int? playlistId)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            if (_tracks == null)
+            {
+                return View();
+            }
+
             var tracks = _tracks;
 
             ViewBag.CurrentSort = sortOrder;
@@ -68,25 +77,43 @@ namespace UI_MVC.Controllers
             var pageNumber = page ?? 1;
             const int pageSize = 5;
 
-            return View(tracks.ToPagedList(pageNumber, pageSize));
+            
+            foreach (var track in tracks)
+            {
+                trackGenreViewModels.Add(new TrackGenreViewModel()
+                {
+                    Genres = _genres,
+                    Track = track,
+                    TrackGenre = new TrackGenreDto()
+                });
+            }
+
+            return View(trackGenreViewModels.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Tracks/New
         public ActionResult New()
         {
+            var viewModel = new TrackGenreViewModel
+            {
+                Track = new TrackDto(),
+                Genres = _genres,
+                TrackGenre = new TrackGenreDto()
+            };
+
             ViewBag.NewOrEdit = "New";
-            return View("TrackForm");
+            return View("TrackForm", viewModel);
         }
 
         // POST: Tracks/Save
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(TrackDto trackDto)
+        public ActionResult Save(TrackGenreViewModel trackGenreViewModel)
         {
             try
             {
-                var trackValidator = new TrackValidator();
-                var result = trackValidator.Validate(trackDto);
+                var trackGenreViewValidator = new TrackGenreViewModelValidator();
+                var result = trackGenreViewValidator.Validate(trackGenreViewModel);
 
                 if (!result.IsValid)
                 {
@@ -94,16 +121,19 @@ namespace UI_MVC.Controllers
                     {
                         ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
                     }
-                    return View("TrackForm", trackDto);
+
+                    trackGenreViewModel.Genres = _genres;
+
+                    return View("TrackForm", trackGenreViewModel);
                 }
 
-                if (trackDto.Id == 0)
+                if (trackGenreViewModel.Track.Id == 0)
                 {
-                    ApiConsumer<TrackDto>.CreateObject(PATH, trackDto);
+                    ApiConsumer<TrackDto>.CreateObject(PATH, trackGenreViewModel.Track);
                 }
                 else
                 {
-                    ApiConsumer<TrackDto>.UpdateObject(PATH, trackDto);
+                    ApiConsumer<TrackDto>.UpdateObject(PATH, trackGenreViewModel.Track);
                 }
 
                 return RedirectToAction("Index");
@@ -124,8 +154,15 @@ namespace UI_MVC.Controllers
                 return HttpNotFound();
             }
 
+            var viewModel = new TrackGenreViewModel()
+            {
+                Genres = _genres,
+                Track = track,
+                TrackGenre = new TrackGenreDto()
+            };
+
             ViewBag.NewOrEdit = "Edit";
-            return View("TrackForm", track);
+            return View("TrackForm", viewModel);
         }
 
         // GET: Tracks/Delete/5

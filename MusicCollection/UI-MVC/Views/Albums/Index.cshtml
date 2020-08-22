@@ -16,15 +16,15 @@
 }
 else
 {
-    using (Html.BeginForm("Index", "Albums", FormMethod.Get))
-    {
-        <div style="float: right">
-            @Html.TextBox("searchString")
-            <button title="Search" input="submit" style="background-color: transparent; border: none">
-                <img src="../../Content/Images/magnifying-glass.svg" width="20" height="20" alt="Search" />
-            </button>
-        </div>
-    }
+    <div style="width: 100%; text-align: right; margin-bottom: 15px;">
+            @using (Html.BeginForm("Index", "Albums", FormMethod.Get))
+            {
+                @Html.TextBox("searchString")
+                <button title="Search" input="submit" style="background-color: transparent; border: none">
+                    <img src="../../Content/Images/magnifying-glass.svg" width="20" height="20" alt="Search" />
+                </button>
+            }
+    </div>
 
     <div class="card-deck">
         <div class="row">

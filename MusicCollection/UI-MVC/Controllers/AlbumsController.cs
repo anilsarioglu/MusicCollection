@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
@@ -58,19 +57,26 @@ namespace UI_MVC.Controllers
         // GET: Albums/New
         public ActionResult New()
         {
+            var viewModel = new AlbumArtistViewModel()
+            {
+                Album = new AlbumDto(),
+                Artists = _artists
+            };
+
             ViewBag.NewOrEdit = "New";
-            return View("AlbumForm");
+            return View("AlbumForm", viewModel);
         }
 
         // POST: Albums/Save
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(AlbumDto albumDto)
+        public ActionResult Save(AlbumArtistViewModel albumArtistViewModel)
         {
             try
             {
-                var albumValidator = new AlbumValidator();
-                var result = albumValidator.Validate(albumDto);
+                var albumArtistViewModelValidator = new AlbumArtistViewModelValidator();
+                var result = albumArtistViewModelValidator.Validate(albumArtistViewModel);
+
 
                 if (!result.IsValid)
                 {
@@ -79,16 +85,18 @@ namespace UI_MVC.Controllers
                         ModelState.AddModelError(failure.PropertyName, failure.ErrorMessage);
                     }
 
-                    return View("AlbumForm", albumDto);
+                    albumArtistViewModel.Artists = _artists;
+
+                    return View("AlbumForm", albumArtistViewModel);
                 }
 
-                if (albumDto.Id == 0)
+                if (albumArtistViewModel.Album.Id == 0)
                 {
-                    ApiConsumer<AlbumDto>.CreateObject(PATH, albumDto);
+                    ApiConsumer<AlbumDto>.CreateObject(PATH, albumArtistViewModel.Album);
                 }
                 else
                 {
-                    ApiConsumer<AlbumDto>.UpdateObject(PATH, albumDto);
+                    ApiConsumer<AlbumDto>.UpdateObject(PATH, albumArtistViewModel.Album);
                 }
 
                 return RedirectToAction("Index");
@@ -109,8 +117,14 @@ namespace UI_MVC.Controllers
                 return HttpNotFound();
             }
 
+            var viewModel = new AlbumArtistViewModel()
+            {
+                Album = album,
+                Artists = _artists
+            };
+
             ViewBag.NewOrEdit = "Edit";
-            return View("AlbumForm", album);
+            return View("AlbumForm", viewModel);
         }
 
         // GET: Albums/Delete/5

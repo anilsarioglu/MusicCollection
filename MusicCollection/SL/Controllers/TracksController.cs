@@ -21,7 +21,13 @@ namespace SL.Controllers
             _trackManager = new TrackManager();
         }
 
-        // GET: api/Tracks
+        //// GET: api/tracks/genres
+        //public IHttpActionResult GetTracksWithGenres()
+        //{
+        //    return Ok(_trackManager.ReadAllTrackGenres().AsEnumerable());
+        //}
+
+        //GET: api/Tracks
         public IHttpActionResult GetTracks()
         {
             return Ok(_trackManager.ReadAll().AsEnumerable());

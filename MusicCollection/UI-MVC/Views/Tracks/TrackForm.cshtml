@@ -1,4 +1,4 @@
-﻿@model Shared.TrackDto
+﻿@model UI_MVC.ViewModels.TrackGenreViewModel
 
 @{
     ViewBag.Title = "New";
@@ -11,21 +11,26 @@
 {
     @Html.ValidationSummary(true, "Please fix the following errors.")
     <div class="form-group">
-        @Html.LabelFor(m => m.Title)
-        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Title, null, new { @class = "text-danger" })
+        @Html.LabelFor(m => m.Track.Title)
+        @Html.TextBoxFor(m => m.Track.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Track.Title, null, new { @class = "text-danger" })
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Duration)
-        @Html.TextBoxFor(m => m.Duration, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Duration, null, new { @class = "text-danger" })
+        @Html.LabelFor(m => m.TrackGenre.GenreId, "Genre")
+        @Html.DropDownListFor(m => m.TrackGenre.GenreId, new SelectList(Model.Genres, "Id", "Name"), "Select Genre", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.TrackGenre.GenreId, null, new { @class = "text-danger" })
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Label)
-        @Html.TextBoxFor(m => m.Label, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Label, null, new { @class = "text-danger" })
+        @Html.LabelFor(m => m.Track.Duration)
+        @Html.TextBoxFor(m => m.Track.Duration, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Track.Duration, null, new { @class = "text-danger" })
     </div>
-    @Html.HiddenFor(m => m.Id)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Track.Label)
+        @Html.TextBoxFor(m => m.Track.Label, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Track.Label, null, new { @class = "text-danger" })
+    </div>
+    @Html.HiddenFor(m => m.Track.Id)
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Save</button>
 }

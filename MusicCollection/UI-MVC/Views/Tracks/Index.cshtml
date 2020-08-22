@@ -7,6 +7,7 @@
 
 @using PagedList.Mvc;
 @using PagedList;
+@using Shared
 
 <h2>Tracks</h2>
 @if (Model == null)
@@ -37,6 +38,13 @@ else
                     })
                 </th>
                 <th>
+                    @Html.ActionLink("Genre", "Index", new
+                    {
+                        sortOrder = ViewBag.GenreSortParm,
+                        currentFilter = ViewBag.CurrentFilter
+                    })
+                </th>
+                <th>
                     @Html.ActionLink("Duration", "Index", new
                     {
                         sortOrder = ViewBag.DurationSortParm,
@@ -57,6 +65,7 @@ else
             {
                 <tr>
                     <td>@trackDto.Title</td>
+                    <td>-</td>
                     <td>@trackDto.Duration</td>
                     <td>@trackDto.Label</td>
                     <td>

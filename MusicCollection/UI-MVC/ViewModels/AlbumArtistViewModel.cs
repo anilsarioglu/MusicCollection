@@ -3,7 +3,7 @@ using Shared;
 
 namespace UI_MVC.ViewModels
 {
-    public class AlbumViewModel
+    public class AlbumArtistViewModel
     {
         public IEnumerable<ArtistDto> Artists { get; set; }
         public AlbumDto Album { get; set; }

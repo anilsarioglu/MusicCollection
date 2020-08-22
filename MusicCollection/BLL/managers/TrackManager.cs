@@ -42,6 +42,22 @@ namespace BLL.managers
             }
         }
 
+        //public IEnumerable<GenreDto> ReadAllTrackGenres()
+        //{
+        //    try
+        //    {
+        //        var tracks = Mapper.MapList<Genre, GenreDto>(_uow.TrackRepository.ReadAllTrackGenres().ToList());
+
+        //        MyLogger.GetInstance().Info("Returned all track genres");
+        //        return Utils.IsAny(tracks) ? tracks : null;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        MyLogger.GetInstance().Error("Couldn't return all track genres", e.Message);
+        //        throw new Exception(e.Message);
+        //    }
+        //}
+
         public TrackDto ReadById(int id)
         {
             try

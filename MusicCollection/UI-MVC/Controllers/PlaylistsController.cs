@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using PagedList;
@@ -16,6 +15,11 @@ namespace UI_MVC.Controllers
         // GET: Playlists
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            if (_playlists == null)
+            {
+                return View();
+            }
+
             var playlists = _playlists;
 
             ViewBag.CurrentSort = sortOrder;

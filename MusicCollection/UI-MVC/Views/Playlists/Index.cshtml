@@ -16,7 +16,7 @@
 
 else
 {
-    using (Html.BeginForm("Index", "Artists", FormMethod.Get))
+    using (Html.BeginForm("Index", "Playlists", FormMethod.Get))
     {
         <div style="float: right">
             @Html.TextBox("searchString")
@@ -28,35 +28,35 @@ else
 
     <table class="table table-bordered table-hover">
         <thead>
-        <tr>
-            <th>
-                @Html.ActionLink("Title", "Index", new
-                {
-                    sortOrder = ViewBag.TitleSortParm,
-                    currentFilter = ViewBag.CurrentFilter
-                })
-            </th>
-            <th>Tracks</th>
-        </tr>
+            <tr>
+                <th>
+                    @Html.ActionLink("Title", "Index", new
+                    {
+                        sortOrder = ViewBag.TitleSortParm,
+                        currentFilter = ViewBag.CurrentFilter
+                    })
+                </th>
+                <th>Tracks</th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (var playlistDto in Model)
-        {
-            <tr>
-                <td>@playlistDto.Title</td>
-                <td>@Html.ActionLink("Show Tracks", "Index", "Tracks", new { playlistId = playlistDto.Id }, new { @class = "btn btn-primary btn-sm" })</td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", "Artists", new { id = playlistDto.Id }, null) |
-                    @Html.ActionLink("Delete", "Delete", "Artists", new { id = playlistDto.Id }, null)
-                </td>
-            </tr>
-        }
+            @foreach (var playlistDto in Model)
+            {
+                <tr>
+                    <td>@playlistDto.Title</td>
+                    <td>@Html.ActionLink("Show Tracks", "Index", "Tracks", new { playlistId = playlistDto.Id }, new { @class = "btn btn-primary btn-sm" })</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Playlists", new { id = playlistDto.Id }, null) |
+                        @Html.ActionLink("Delete", "Delete", "Playlists", new { id = playlistDto.Id }, null)
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 }
 
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-@Html.PagedListPager(Model, page => Url.Action("Index", "Artists", new
+@Html.PagedListPager(Model, page => Url.Action("Index", "Playlists", new
 {
     page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter
 }))
