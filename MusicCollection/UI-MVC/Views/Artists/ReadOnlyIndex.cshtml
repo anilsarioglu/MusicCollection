@@ -1,0 +1,66 @@
+﻿@model IPagedList<Shared.ArtistDto>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using PagedList.Mvc;
+@using PagedList;
+
+<h2>Artists</h2>
+@if (Model == null)
+{
+    <p>There are no artists yet.</p>
+}
+
+else
+{
+    using (Html.BeginForm("Index", "Artists", FormMethod.Get))
+    {
+        <div style="float: right">
+            @Html.TextBox("searchString")
+            <button title="Search" input="submit" style="background-color: transparent; border: none">
+                <img src="../../Content/Images/magnifying-glass.svg" width="20" height="20" alt="Search" />
+            </button>
+        </div>
+    }
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.ActionLink("Name", "Index", new
+                         {
+                             sortOrder = ViewBag.NameSortParm,
+                             currentFilter = ViewBag.CurrentFilter
+                         })
+                </th>
+                <th>
+                    @Html.ActionLink("Date of Birth", "Index", new
+                         {
+                             sortOrder = ViewBag.BirthdateSortParm,
+                             currentFilter = ViewBag.CurrentFilter
+                         })
+                </th>
+                <th>Albums</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var artistDto in Model)
+            {
+                <tr>
+                    <td>@artistDto.Name</td>
+                    <td>@artistDto.Birthdate.ToString("dd/MM/yyyy")</td>
+                    <td>@Html.ActionLink("Show Albums", "Index", "Albums", new { artistId = artistDto.Id }, new { @class = "btn btn-primary btn-sm" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", "Artists", new
+{
+    page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter
+}))

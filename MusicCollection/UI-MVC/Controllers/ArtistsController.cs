@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using PagedList;
 using Shared;
+using UI_MVC.Models;
 using UI_MVC.Validators;
 
 namespace UI_MVC.Controllers
@@ -59,10 +60,16 @@ namespace UI_MVC.Controllers
             var pageNumber = page ?? 1;
             const int pageSize = 5;
 
+            if (!User.IsInRole(RoleName.CanManageEverything))
+            {
+                return View("ReadOnlyIndex", artists.ToPagedList(pageNumber, pageSize));
+            }
+
             return View(artists.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Artists/New
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult New()
         {
             ViewBag.NewOrEdit = "New";
@@ -72,6 +79,7 @@ namespace UI_MVC.Controllers
         // POST: Artists/Save
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Save(ArtistDto artistDto)
         {
             try
@@ -106,6 +114,7 @@ namespace UI_MVC.Controllers
         }
 
         // GET: Artists/Edit/5
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Edit(int id)
         {
             var artist = ApiConsumer<ArtistDto>.GetObject(PATH, id);
@@ -120,6 +129,7 @@ namespace UI_MVC.Controllers
         }
 
         // GET: Artists/Delete/5
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Delete(int id)
         {
             return View(ApiConsumer<ArtistDto>.GetObject(PATH, id));
@@ -128,6 +138,7 @@ namespace UI_MVC.Controllers
         // DELETE: Artist/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Delete(ArtistDto artistDto)
         {
             try

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using UI_MVC.Models;
@@ -155,6 +153,12 @@ namespace UI_MVC.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //Temp code
+                    //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    //var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    //await roleManager.CreateAsync(new IdentityRole("CanManageEverything"));
+                    //await UserManager.AddToRoleAsync(user.Id, "CanManageEverything");
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -163,7 +167,7 @@ namespace UI_MVC.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Artists");
                 }
                 AddErrors(result);
             }
@@ -392,7 +396,7 @@ namespace UI_MVC.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Artists");
         }
 
         //
@@ -449,7 +453,7 @@ namespace UI_MVC.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Artists");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

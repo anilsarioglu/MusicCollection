@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using PagedList;
 using Shared;
+using UI_MVC.Models;
 using UI_MVC.Validators;
 using UI_MVC.ViewModels;
 
@@ -48,13 +49,26 @@ namespace UI_MVC.Controllers
                 var artistName = ApiConsumer<ArtistDto>.GetObject("artists", (int)artistId).Name;
                 ViewBag.ArtistName = "of " + artistName;
 
+                if (!User.IsInRole(RoleName.CanManageEverything))
+                {
+                    return View("ReadOnlyIndex", albums.ToPagedList(pageNumber, pageSize));
+                }
+
                 return View(albums.ToPagedList(pageNumber, pageSize));
+            }
+
+            if (!User.IsInRole(RoleName.CanManageEverything))
+            {
+                return View("ReadOnlyIndex", albums.ToPagedList(pageNumber, pageSize));
             }
 
             return View(albums.ToPagedList(pageNumber, pageSize));
         }
 
+
+
         // GET: Albums/New
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult New()
         {
             var viewModel = new AlbumArtistViewModel()
@@ -70,6 +84,7 @@ namespace UI_MVC.Controllers
         // POST: Albums/Save
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Save(AlbumArtistViewModel albumArtistViewModel)
         {
             try
@@ -108,6 +123,7 @@ namespace UI_MVC.Controllers
         }
 
         // GET: Albums/Edit/5
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Edit(int id)
         {
             var album = ApiConsumer<AlbumDto>.GetObject(PATH, id);
@@ -128,6 +144,7 @@ namespace UI_MVC.Controllers
         }
 
         // GET: Albums/Delete/5
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Delete(int id)
         {
             return View(ApiConsumer<AlbumDto>.GetObject(PATH, id));
@@ -136,6 +153,7 @@ namespace UI_MVC.Controllers
         // DELETE: Albums/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Delete(AlbumDto albumDto)
         {
             try

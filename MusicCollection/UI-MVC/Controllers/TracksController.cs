@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using PagedList;
 using Shared;
+using UI_MVC.Models;
 using UI_MVC.Validators;
 using UI_MVC.ViewModels;
 
@@ -75,10 +76,16 @@ namespace UI_MVC.Controllers
             var pageNumber = page ?? 1;
             const int pageSize = 5;
 
+            if (!User.IsInRole(RoleName.CanManageEverything))
+            {
+                return View("ReadOnlyIndex", tracks.ToPagedList(pageNumber, pageSize));
+            }
+
             return View(tracks.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Tracks/New
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult New()
         {
             var viewModel = new TrackGenreViewModel
@@ -95,6 +102,7 @@ namespace UI_MVC.Controllers
         // POST: Tracks/Save
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Save(TrackGenreViewModel trackGenreViewModel)
         {
             try
@@ -132,6 +140,7 @@ namespace UI_MVC.Controllers
         }
 
         // GET: Tracks/Edit/5
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Edit(int id)
         {
             var track = ApiConsumer<TrackDto>.GetObject(PATH, id);
@@ -153,6 +162,7 @@ namespace UI_MVC.Controllers
         }
 
         // GET: Tracks/Delete/5
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Delete(int id)
         {
             return View(ApiConsumer<TrackDto>.GetObject(PATH, id));
@@ -161,6 +171,7 @@ namespace UI_MVC.Controllers
         // DELETE: Tracks/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Delete(TrackDto trackDto)
         {
             try

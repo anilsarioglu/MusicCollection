@@ -21,7 +21,7 @@ namespace UI_MVC.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("conStr", throwIfV1Schema: false)
         {
         }
 

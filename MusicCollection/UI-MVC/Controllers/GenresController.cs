@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using PagedList;
 using Shared;
+using UI_MVC.Models;
 using UI_MVC.Validators;
 
 namespace UI_MVC.Controllers
@@ -50,10 +51,16 @@ namespace UI_MVC.Controllers
             var pageNumber = page ?? 1;
             const int pageSize = 5;
 
+            if (!User.IsInRole(RoleName.CanManageEverything))
+            {
+                return View("ReadOnlyIndex", genres.ToPagedList(pageNumber, pageSize));
+            }
+
             return View(genres.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Genres/New
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult New()
         {
             ViewBag.NewOrEdit = "New";
@@ -63,6 +70,7 @@ namespace UI_MVC.Controllers
         // POST: Genres/Save
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Save(GenreDto genreDto)
         {
             try
@@ -97,6 +105,7 @@ namespace UI_MVC.Controllers
         }
 
         // GET: Genres/Edit/5
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Edit(int id)
         {
             var genre = ApiConsumer<GenreDto>.GetObject(PATH, id);
@@ -111,6 +120,7 @@ namespace UI_MVC.Controllers
         }
 
         // GET: Genres/Delete/5
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Delete(int id)
         {
             return View(ApiConsumer<GenreDto>.GetObject(PATH, id));
@@ -119,6 +129,7 @@ namespace UI_MVC.Controllers
         // DELETE: Genres/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Delete(GenreDto genreDto)
         {
             try

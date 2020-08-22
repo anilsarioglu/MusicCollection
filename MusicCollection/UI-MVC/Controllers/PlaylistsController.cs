@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using PagedList;
 using Shared;
+using UI_MVC.Models;
 using UI_MVC.Validators;
 
 namespace UI_MVC.Controllers
@@ -55,10 +56,16 @@ namespace UI_MVC.Controllers
             var pageNumber = page ?? 1;
             const int pageSize = 5;
 
+            if (!User.IsInRole(RoleName.CanManageEverything))
+            {
+                return View("ReadOnlyIndex", playlists.ToPagedList(pageNumber, pageSize));
+            }
+
             return View(playlists.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Playlists/New
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult New()
         {
             ViewBag.NewOrEdit = "New";
@@ -68,6 +75,7 @@ namespace UI_MVC.Controllers
         // POST: Playlists/Save
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Save(PlaylistDto playlistDto)
         {
             try
@@ -102,6 +110,7 @@ namespace UI_MVC.Controllers
         }
 
         // GET: Playlists/Edit/5
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Edit(int id)
         {
             var playlist = ApiConsumer<PlaylistDto>.GetObject(PATH, id);
@@ -116,6 +125,7 @@ namespace UI_MVC.Controllers
         }
 
         // GET: Playlists/Delete/5
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Delete(int id)
         {
             return View(ApiConsumer<PlaylistDto>.GetObject(PATH, id));
@@ -124,6 +134,7 @@ namespace UI_MVC.Controllers
         // DELETE: Playlists/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageEverything)]
         public ActionResult Delete(PlaylistDto playlistDto)
         {
             try

@@ -213,6 +213,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\RoleName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Validators\AlbumArtistViewModelValidator.cs" />
@@ -399,6 +400,11 @@
     <Content Include="Views\Genres\Delete.cshtml" />
     <Content Include="Views\Tracks\Delete.cshtml" />
     <Content Include="Views\Playlists\Delete.cshtml" />
+    <Content Include="Views\Albums\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\Artists\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\Genres\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\Playlists\ReadOnlyIndex.cshtml" />
+    <Content Include="Views\Tracks\ReadOnlyIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
