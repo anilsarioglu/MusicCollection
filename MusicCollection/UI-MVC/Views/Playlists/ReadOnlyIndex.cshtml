@@ -44,7 +44,7 @@ else
             {
                 <tr>
                     <td>@playlistDto.Title</td>
-                    <td>@Html.ActionLink("Show Tracks", "Index", "Tracks", new { playlistId = playlistDto.Id }, new { @class = "btn btn-primary btn-sm" })</td>
+                    <td>@Html.ActionLink("Show Tracks", "Construction", "Playlists", new { playlistId = playlistDto.Id }, new { @class = "btn btn-primary btn-sm" })</td>
                 </tr>
             }
         </tbody>

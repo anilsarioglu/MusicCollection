@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using DAL.repositories.interfaces;
 using Domain;
@@ -22,28 +24,28 @@ namespace DAL.repositories
         {
             using (var context = new DatabaseContext())
             {
-                return context.Tracks.ToList();
+                var tracks = context.Tracks.SqlQuery("SELECT * " +
+                                                     "FROM MusicCollection.Track ").ToList();
+                return tracks;
             }
         }
 
-        //public IEnumerable<Genre> ReadAllTrackGenres()
-        //{
-        //    using (var context = new DatabaseContext())
-        //    {
-        //        var genres = context.Genres.SqlQuery("SELECT g.Name " +
-        //                                             "FROM MusicCollection.Genre g " +
-        //                                             "INNER JOIN MusicCollection.TrackGenres tg ON g.Id = tg.GenreId " +
-        //                                             "INNER JOIN MusicCollection.Track t ON tg.TrackId = t.Id").ToList();
-        //        return genres;
-        //    }
-        //}
-
         public Track ReadById(int id)
         {
-            using (var context = new DatabaseContext())
+            try
             {
-                return context.Tracks.Find(id);
+                using (var context = new DatabaseContext())
+                {
+                    var paramId = new SqlParameter("@TrackId", id);
+                    var track = context.Tracks.SqlQuery("GetTrackById @TrackId", paramId).First();
+                    return track;
+                }
             }
+            catch (Exception)
+            {
+                return null;
+            }
+            
         }
 
         public Track Update(Track track)

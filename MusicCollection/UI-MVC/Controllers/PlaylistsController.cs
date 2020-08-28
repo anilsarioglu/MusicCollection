@@ -147,5 +147,11 @@ namespace UI_MVC.Controllers
                 return View();
             }
         }
+
+        // GET: Playlists/Construction
+        public ActionResult Construction()
+        {
+            return View();
+        }
     }
 }
