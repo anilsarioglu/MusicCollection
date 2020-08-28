@@ -1,4 +1,5 @@
 ﻿using DAL.repositories;
+using DAL.Repositories;
 
 namespace DAL.unitOfWork
 {
@@ -10,11 +11,12 @@ namespace DAL.unitOfWork
         private DisconnectedPlaylistRepository _playlistRepository;
         private DisconnectedTrackRepository _trackRepository;
 
+        private DisconnectedTrackGenreRepository _trackGenreRepository;
+
         public DisconnectedAlbumRepository AlbumRepository
         {
             get
             {
-
                 if (this._albumRepository == null)
                 {
                     this._albumRepository = new DisconnectedAlbumRepository();
@@ -27,7 +29,6 @@ namespace DAL.unitOfWork
         {
             get
             {
-
                 if (this._artistRepository == null)
                 {
                     this._artistRepository = new DisconnectedArtistRepository();
@@ -40,7 +41,6 @@ namespace DAL.unitOfWork
         {
             get
             {
-
                 if (this._genreRepository == null)
                 {
                     this._genreRepository = new DisconnectedGenreRepository();
@@ -53,7 +53,6 @@ namespace DAL.unitOfWork
         {
             get
             {
-
                 if (this._playlistRepository == null)
                 {
                     this._playlistRepository = new DisconnectedPlaylistRepository();
@@ -66,12 +65,23 @@ namespace DAL.unitOfWork
         {
             get
             {
-
                 if (this._trackRepository == null)
                 {
                     this._trackRepository = new DisconnectedTrackRepository();
                 }
                 return _trackRepository;
+            }
+        }
+
+        public DisconnectedTrackGenreRepository TrackGenreRepository
+        {
+            get
+            {
+                if (this._trackGenreRepository == null)
+                {
+                    this._trackGenreRepository = new DisconnectedTrackGenreRepository();
+                }
+                return _trackGenreRepository;
             }
         }
     }

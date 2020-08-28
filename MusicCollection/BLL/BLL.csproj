@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Managers\TrackGenreManager.cs" />
     <Compile Include="Utilities\AutoMapper\Mapper.cs" />
     <Compile Include="Managers\TrackManager.cs" />
     <Compile Include="Managers\AlbumManager.cs" />

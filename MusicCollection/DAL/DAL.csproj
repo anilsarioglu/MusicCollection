@@ -57,6 +57,7 @@
     <Compile Include="DbConfigurations\GenreEntityConfiguration.cs" />
     <Compile Include="DbConfigurations\PlaylistEntityConfiguration.cs" />
     <Compile Include="DbConfigurations\TrackEntityConfiguration.cs" />
+    <Compile Include="DbConfigurations\TrackGenreEntityConfiguration.cs" />
     <Compile Include="Migrations\202008112023064_Initial.cs" />
     <Compile Include="Migrations\202008112023064_Initial.designer.cs">
       <DependentUpon>202008112023064_Initial.cs</DependentUpon>
@@ -73,12 +74,17 @@
     <Compile Include="Migrations\202008221811503_SeedUsers1.designer.cs">
       <DependentUpon>202008221811503_SeedUsers1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008281538111_AddedTrackGenre.cs" />
+    <Compile Include="Migrations\202008281538111_AddedTrackGenre.designer.cs">
+      <DependentUpon>202008281538111_AddedTrackGenre.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DisconnectedAlbumRepository.cs" />
     <Compile Include="Repositories\DisconnectedArtistRepository.cs" />
     <Compile Include="Repositories\DisconnectedGenreRepository.cs" />
     <Compile Include="Repositories\DisconnectedPlaylistRepository.cs" />
+    <Compile Include="Repositories\DisconnectedTrackGenreRepository.cs" />
     <Compile Include="Repositories\DisconnectedTrackRepository.cs" />
     <Compile Include="Repositories\Interfaces\IDisconnectedRepository.cs" />
     <Compile Include="UnitOfWork\DisconnectedUnitOfWork.cs" />
@@ -99,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008221811503_SeedUsers1.resx">
       <DependentUpon>202008221811503_SeedUsers1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008281538111_AddedTrackGenre.resx">
+      <DependentUpon>202008281538111_AddedTrackGenre.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

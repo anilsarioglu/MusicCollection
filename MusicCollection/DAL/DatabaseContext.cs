@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using DAL.dbConfigurations;
+using DAL.DbConfigurations;
 using Domain;
 
 namespace DAL
@@ -17,6 +18,8 @@ namespace DAL
         public DbSet<Playlist> Playlists { get; set; }
         public DbSet<Track> Tracks { get; set; }
 
+        public DbSet<TrackGenre> TrackGenres { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("MusicCollection");
@@ -26,6 +29,8 @@ namespace DAL
             modelBuilder.Configurations.Add(new GenreEntityConfiguration());
             modelBuilder.Configurations.Add(new PlaylistEntityConfiguration());
             modelBuilder.Configurations.Add(new TrackEntityConfiguration());
+
+            modelBuilder.Configurations.Add(new TrackGenreEntityConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

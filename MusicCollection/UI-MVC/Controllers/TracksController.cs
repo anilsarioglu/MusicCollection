@@ -125,10 +125,36 @@ namespace UI_MVC.Controllers
                 if (trackGenreViewModel.Track.Id == 0)
                 {
                     ApiConsumer<TrackDto>.CreateObject(PATH, trackGenreViewModel.Track);
+
+                    var highestTrackId = 0;
+                    foreach (var track in _tracks)
+                    {
+
+                        if (track.Id > highestTrackId)
+                        {
+                            highestTrackId = track.Id;
+                        }
+                    }
+
+                    var newTrackGenreDto = new TrackGenreDto()
+                    {
+                        TrackId = highestTrackId,
+                        GenreId = trackGenreViewModel.TrackGenre.GenreId
+                    };
+
+                    ApiConsumer<TrackGenreDto>.CreateObject("TrackGenres", newTrackGenreDto);
                 }
                 else
                 {
                     ApiConsumer<TrackDto>.UpdateObject(PATH, trackGenreViewModel.Track);
+
+                    var trackGenreDto = new TrackGenreDto()
+                    {
+                        TrackId = trackGenreViewModel.Track.Id,
+                        GenreId = trackGenreViewModel.TrackGenre.GenreId
+                    };
+
+                    ApiConsumer<TrackGenreDto>.UpdateObject("TrackGenres", trackGenreDto);
                 }
 
                 return RedirectToAction("Index");
