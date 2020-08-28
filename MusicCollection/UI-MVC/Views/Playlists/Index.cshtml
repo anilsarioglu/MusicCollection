@@ -9,6 +9,11 @@
 @using PagedList;
 
 <h2>Playlists</h2>
+
+<p>
+    @Html.ActionLink("New Playlist", "New", "Playlists", null, new { @class = "btn btn-primary btn-xs" })
+</p>
+
 @if (Model == null)
 {
     <p>There are no playlists yet.</p>
@@ -16,10 +21,6 @@
 
 else
 {
-    <p>
-        @Html.ActionLink("New Playlist", "New", "Playlists", null, new { @class = "btn btn-primary btn-xs" })
-    </p>
-
     using (Html.BeginForm("Index", "Playlists", FormMethod.Get))
     {
         <div style="float: right">
@@ -59,8 +60,11 @@ else
     </table>
 }
 
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-@Html.PagedListPager(Model, page => Url.Action("Index", "Playlists", new
+@if (Model != null && Model.PageCount > 0)
 {
-    page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter
-}))
+    <div>
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    </div>
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+}
