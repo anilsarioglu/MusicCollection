@@ -1,9 +1,9 @@
 # Music Collection
 ### School assignment for the course: Programming in .NET
 
+<br/>
 
-## Portfolio Programmeren in .NET
-
+### Portfolio Programmeren in .NET
 ASP.NET MVC app voor beheren van een muziekcollectie
 
 Voor je portfolio dien je met behulp van Entity Framework en ASP.NET MVC een app te maken die een gebruiker de mogelijkheid geeft om zijn muziekcollectie zelf te beheren. 
