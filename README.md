@@ -1,7 +1,8 @@
-# MusicCollection
-School assignment
+# Music Collection
+### School assignment for the course: Programming in .NET
 
-# Portfolio Programmeren in .NET
+
+## Portfolio Programmeren in .NET
 
 ASP.NET MVC app voor beheren van een muziekcollectie
 
